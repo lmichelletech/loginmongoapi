@@ -9,7 +9,42 @@
 </head>
 <body>
     <h1>Sign In</h1>
-
+    <nav class="nav">
+        <div>Welcome</div>
+        <div>
+            <a href="/signup">Sign-Up</a>
+        </div>
+    </nav>
+    <div class="container">
+            
+        <% if (message.length) { %>
+            <div class="flash"><%= message %></div>
+        <% } %>
+        
+        <form action="/signin" method="POST">
+            <label for="email">Email</label>
+            <div>
+                <input required type="email" name="email" class="form-input">
+            </div>
+            <label for="password">Password</label>
+            <div>
+                <input required type="password" name="password" class="form-input">
+            </div>
+            <label for="password_confirmation">Password Confirmation</label>
+            <div>
+                <input required type="password" name="password_confirmation" class="form-input">
+            </div>
+            
+            <button type="submit" class="form-btn">Sign In</button>
+        </form>
+        
+        <div class="links-container">
+            
+            <div>Forgot your password? <a href="/passwordrecovery">Recover</a></div>
+            <div>Don't have an account? <a href="/signup">Sign-Up</a></div>
+            
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="/main.js"></script>
 </body>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,36 +8,55 @@
     <title>Sign Up</title>
     <link rel="stylesheet" href="/main.css">
 </head>
+
 <body>
     <h1>Sign Up</h1>
-<div class="container">
-    <form action="/signin" method="POST">
-        <label for="name">Name</label>
+    <nav class="nav">
+        <div>Welcome</div>
         <div>
-            <input name="name" class="form-input">
+            <a href="/signin">Sign-In</a>
         </div>
-        <label for="birthday">Birthday</label>
-        <div>
-            <input name="birthday" class="form-input">
+    </nav>
+    <% if (message.length) { %>
+        <div class="flash"><%= message %></div>
+    <% } %>
+    
+    <div class="container">
+        <form action="/signup" method="POST">
+            <label for="name">Name</label>
+            <div>
+                <input required type="text" name="name" class="form-input">
+            </div>
+            <label for="birthdate">Birthdate</label>
+            <div>
+                <input required type="date" name="birthdate" class="form-input">
+            </div>
+            <label for="email">Email</label>
+            <div>
+                <input required type="email" name="email" class="form-input">
+            </div>
+            <label for="password">Password</label>
+            <div>
+                <input required type="password" name="password" class="form-input">
+            </div>
+            <label for="password_confirmation">Password Confirmation</label>
+            <div>
+                <input required type="password" name="password_confirmation" class="form-input">
+            </div>
+
+            <button type="submit" class="form-btn">Sign Up</button>
+        </form>
+    
+    
+        <div class="links-container">
+                
+            <div>Already have an account? <a href="/signin">Sign-In</a></div>
+            <div>Forgot your password? <a href="/passwordrecovery">Recover</a></div>
+            
         </div>
-        <label for="email">Email</label>
-        <div>
-            <input name="email" class="form-input">
-        </div>
-        <label for="password">Password</label>
-        <div>
-            <input name="password" class="form-input">
-        </div>
-        <label for="password_confirmation">Password Confirmation</label>
-        <div>
-            <input name="password_confirmation" class="form-input">
-        </div>
-        
-        <button type="submit">Sign Up</button>
-    </form>
     </div>
-    Already have an account? <a href="/sign-in">signin</a>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="/main.js"></script>
+    <script src="/main.js"></script>
 </body>
+
 </html>

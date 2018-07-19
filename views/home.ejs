@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/home.css">
+</head>
+<body>
+    <h1>Home</h1>
+    <!-- You should not be seeing this unless you're signed in. -->
+    <nav class="nav">
+        <div>
+           Hi <%= user.name.split(' ')[0] %>
+        </div>
+        <div>
+            <a href="/profile">Profile</a>
+            <a href="/signout">Sign-Out</a>
+        </div>
+    </nav>
+    <div id="container">
+        <div class="col-side" id="col1">Left</div>
+        <div class="col" id="col2">Center</div>
+        <div class="col-side" id="col3">Right</div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/main.js"></script>
+</body>
+</html>

@@ -9,7 +9,32 @@
 </head>
 <body>
     <h1>Profile</h1>
+    <!-- <div>
+        This should only be seen when user is signed in.
+        This is where you can show the user their avatar and all sign up information.
+        Could add preferences,security options, memberships, etc.
 
+        <div class="links-container">
+                
+            <div>Already have an account? <a href="/signin">Sign-In</a></div>
+            <div>Forgot your password? <a href="/passwordrecovery">Recover</a></div>
+            
+        </div>
+    </div> -->
+    <nav class="nav">
+        <div>Hi <%= user.name %></div>
+        <div>
+            <a href="/home">Home</a>
+            <a href="/updateprofile">Update</a>
+            <a href="/signout">Sign-Out</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div><%= user.name %></div>
+        <div><%= user.email %></div>
+        <div><%= user.birthdate %></div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="/main.js"></script>
 </body>
