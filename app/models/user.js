@@ -24,7 +24,7 @@ const userSchema = mongoose.Schema({
     emailConfirmed: {type: Boolean, default: false},
     emailConfirmationToken: String,
     resetPasswordToken: String,
-    resetPasswordExpires: Number
+    resetPasswordExpires: Date
 });
 
 //generate hash
@@ -42,6 +42,11 @@ userSchema.methods.isEmailConfirmed = function(){
     return this.emailConfirmed;
 };
 
-
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
+    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+      if (err) return cb(err);
+      cb(null, isMatch);
+    });
+  };
 //create the model and expose it to our app
 module.exports = mongoose.model('User', userSchema);

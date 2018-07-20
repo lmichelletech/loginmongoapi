@@ -24,23 +24,6 @@ module.exports = function(app, isLoggedIn){
             res.redirect('signin');
         }
     })
-    app.get('/passwordrecovery', isLoggedIn, function(req, res){
-        if(req.user){
-            res.render('passwordrecovery', { message: req.flash('password-recovery-msg')});
-        }
-        else{
-            res.redirect('signin');
-        }
-    })
-    
-    app.get('/passwordreset', isLoggedIn, function(req, res){
-        if(req.user){
-            res.render('passwordreset', { message: req.flash('password-reset-msg')});
-        }
-        else{
-            res.redirect('signin');
-        }
-    })
     
     app.get('/signin', function(req, res){
         if(req.isAuthenticated()){
@@ -84,13 +67,30 @@ module.exports = function(app, isLoggedIn){
             });
         }
         else{
-            res.render('signin', { message: req.flash('sign-in-msg')});
+            res.redirect('signin', { message: req.flash('sign-in-msg')});
         }
     })
+    app.get('/passwordrecovery', function(req, res){
+        if(!req.user){
+            res.render('passwordrecovery', { message: req.flash('password-recovery-msg')});
+        }
+        else{
+            res.redirect('/home');
+        }
+    })
+    
+    app.get('/passwordreset', function(req, res){
+        if(!req.user){
+            res.render('passwordreset', { message: req.flash('password-reset-msg')});
+        }
+        else{
+            res.redirect('/home');
+        }
+    })
+    
     app.get('*', function(req, res){
         res.render('404');
     })
 
-   
 }
 
