@@ -199,9 +199,8 @@ module.exports = function(app, passport, isLoggedIn){
             'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
         };
         smtpTransport.sendMail(mailOptions, function (err) {
-          req.flash('loginMessage', 'Your password was succesfully reseted');
-          return res.redirect('/login');
-          done(err);
+          req.flash('sign-in-msg', 'Your password was succesfully reseted');
+          return res.redirect('/signin');
         });
       }
     ], function (err) {

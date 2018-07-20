@@ -17,9 +17,11 @@
     </nav>
     <div class="container">
             
-        <% if (message.length) { %>
+        <div class="feedback">
+            <% if (message.length) { %>
             <div class="flash"><%= message %></div>
-        <% } %>
+            <% } %>
+        </div>
         
         <form action="/signin" method="POST">
             <label for="email">Email</label>

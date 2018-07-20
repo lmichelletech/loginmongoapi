@@ -171,8 +171,11 @@ module.exports = function (passport) {
                 return done(null, false, req.flash('update-profile-msg', 'Please enter your current password for the changes to take effect.'));
             }
 
-            else {
+            // if used changed some basic information and entered the current password
+            else if (req.user.isValidPassword(password)) {
                 var user = req.user;
+                
+                    
                 if (req.body.new_password && req.body.new_password_confirmation && req.body.new_password === req.body.new_password_confirmation) {
                     user.password = user.generateHash(req.body.new_password);
                 }
@@ -186,100 +189,10 @@ module.exports = function (passport) {
 
                     return done(null, user, req.flash('update-profile-msg', 'Profile updated successfully!'));
                 });
+                
             }
         });
     }));
 
 
-
-
-
-
-
-
-
-//     passport.use('local-password-recovery', new LocalStrategy({
-//         usernameField: 'email',
-//         passwordField: 'password',
-//         passReqToCallback: true
-//     },
-//     function (token, user, done) {
-//         var smtpTransport = nodemailer.createTransport({
-//             service: 'gmail',
-//             auth: {
-//                 user: 'fviclass@gmail.com',
-//                                             pass: 'fviclass2017'
-//             }
-//         });
-//         var mailOptions = {
-//             to: user.email,
-//             from: 'Password Recovery',
-//             subject: 'Password Reset',
-//             html: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-//                 'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-//                 'http://' + req.headers.host + '/password_reset/' + token + '\n\n' +
-//                 'Verification Code: ' + token + '\n\n' +
-//                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-//         };
-
-//         smtpTransport.sendMail(mailOptions, function (err) {
-//             req.flash('passwordRecoveryMessage', 'An e-mail has been sent to ' + user.email + ' with further instructions.')
-//             return res.redirect('/password_recovery');
-//             done(err, 'done');
-//         });
-//     }
-//     ))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//         // Local update strategy
-//     passport.use('local-password-reset', new LocalStrategy({
-//         // by default, local strategy uses username and password, we will override with email
-//         passwordField: 'password',
-//         passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
-//     },
-//     function (req, password, done) {
-        
-//         process.nextTick(function () {
-//             // if the user is not already logged in:
-//             if (!req.user) {
-//                 return done(null, false, req.flash('password-reset-msg', 'You must be logged in to reset your password'));
-//             }
-
-//             // if password is invalid, return message
-//             else if (!req.user.isValidPassword(password)) {
-//                 return done(null, false, req.flash('password-reset-msg', 'Please enter your current password for the changes to take effect.'));
-//             }
-
-//             else {
-//                 var user = req.user;
-//                 if (req.body.new_password && req.body.new_password_confirmation && req.body.new_password === req.body.new_password_confirmation) {
-//                     user.password = user.generateHash(req.body.new_password);
-//                 }
-
-//                 user.save(function (err) {
-//                     if (err)
-//                         return done(err);
-
-//                     return done(null, user, req.flash('password-reset-msg', 'Password reset successfully!'));
-//                 });
-//             }
-//         });
-//     }));
 }
