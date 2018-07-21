@@ -22,7 +22,9 @@ body{
     align-items: center;
     flex-direction: column;
 }
-
+h1{
+    padding: 0 20px;
+}
 .form-input{
     width: 275px;
     height: 60px;

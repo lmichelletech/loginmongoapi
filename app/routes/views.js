@@ -58,6 +58,7 @@ module.exports = function(app, isLoggedIn){
             res.render('signin', { message: req.flash('sign-in-msg')});
         }
     })
+
     app.get('/updateprofile', isLoggedIn, function(req, res){
         
         if(req.user){
@@ -70,35 +71,55 @@ module.exports = function(app, isLoggedIn){
             res.redirect('signin', { message: req.flash('sign-in-msg')});
         }
     })
-    // app.get('/passwordrecovery', function(req, res){
-    //     if(!req.user){
-    //         res.render('passwordrecovery', { message: req.flash('password-recovery-msg')});
-    //     }
-    //     else{
-    //         res.redirect('/home');
-    //     }
-    // })
-    
-    // app.get('/passwordreset', function(req, res){
-    //     if(!req.user){
-    //         res.render('passwordreset', { message: req.flash('password-reset-msg')});
-    //     }
-    //     else{
-    //         res.redirect('/home');
-    //     }
-    // })
-    
-
     
     app.get('/passwordrecovery', function(req, res){
         res.render('passwordrecovery', { message: req.flash('password-recovery-msg')});
     })
 
-    
-    
     app.get('/passwordreset', function(req, res){
         res.render('passwordreset.ejs', { message: req.flash('password-reset-msg')});
     })
+
+    app.get('/articlehome', function(req, res){
+        res.render('home.ejs', { message: req.flash('submit-article-msg')});
+    })
+    // app.post('/createarticle', function(req, res){
+    //     res.render('articleview.ejs', { message: req.flash('submit-article-msg')});
+    // })
+
+    app.get('/dashboard', function(req, res){
+        res.render('dashboard.ejs', { message: req.flash('dashboard-msg')});
+    })
+
+    app.get('/deletearticle', function(req, res){
+        res.render('dashboard.ejs', { message: req.flash('dashboard-msg')});
+    })
+
+    app.get('/articlelist', function(req, res){
+        res.render('dashboard.ejs', { message: req.flash('dashboard-msg')});
+    })
+
+    app.get('/deletearticle', function(req, res){
+        res.render('dashboard.ejs', { message: req.flash('dashboard-msg')});
+    })
+    app.post('/updatearticle', function(req, res){
+        res.redirect('viewarticle.ejs', { message: req.flash('view-article-msg')});
+    })
+    app.post('/addarticlecomment', function(req, res){
+        res.redirect('viewarticle.ejs', { message: req.flash('view-article-msg')});
+    })
+    app.post('/addvote', function(req, res){
+        res.render('viewarticle.ejs', { message: req.flash('view-article-msg')});
+    })
+
+    app.get('/newarticle', function(req, res){
+        res.render('newarticle.ejs', { message: req.flash('new-article-msg')});
+    })
+
+    app.post('/newarticle', function(req, res){
+        res.render('newarticle.ejs', { message: req.flash('new-article-msg')});
+    })
+
     app.get('*', function(req, res){
         res.render('404');
     })

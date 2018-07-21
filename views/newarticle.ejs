@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="/newarticle.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+    
+        <div class="nav row no-gutters align-items-center">
+            <div class="col-sm-8">
+                <div class="row align-items-center"><h1>Dashboard</h1></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row align-items-center" id="menu">
+                    <a href="/home">Home</a>
+                    <a href="/profile">Profile</a>
+                    <a href="/signout">Sign-Out</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row no-gutters align-items-center friendly">
+            <div class="col-md-8" id="name">
+                Article Submission
+            </div>
+            <div class="col-md-4">
+                <div class="row social">
+                    <div><i class="fab fa-facebook"></i></div>
+                    <div><i class="fab fa-tumblr-square"></i></div>
+                    <div><i class="fab fa-blogger"></i></div>
+                    <div><i class="fab fa-google-plus-square"></i></div>
+                </div>
+                
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="row no-gutters" id="newarticlewrap">
+            <div class="col-sm-12 align-self-center">
+                <div id="newarticleform">
+                    <form action="/newarticle" class="justify-content-center" method="POST">
+
+                        <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="title">Article Title</label>
+                                        <input type="text" class="form-control form-control-lg" placeholder="title">
+                                    </div>
+
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="articlebody">Article Body</label>
+                                        <textarea class="form-control" id="articlebody" rows="3" placeholder="body"></textarea>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="sr-only">Tags</label>
+                                        <input type="text" class="form-control form-control-lg" placeholder="tags">
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row catcheck">
+                                <div class="col">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Art</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">News</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                        <label class="form-check-label" for="inlineRadio3">Entertainment</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option4">
+                                        <label class="form-check-label" for="inlineRadio4">Tech</label>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="articleimg">Image</label>
+                                        <input type="file" class="form-control-file" id="articleimg">
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col">
+
+                                    <button type="submit" class="btn btn-secondary btn-lg">Submit</button>
+                                </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+      
+
+        <div id="footer" class="nav row no-gutters align-items-center">
+            <div class="col-sm-6">
+                <div class="row align-items-center"><h1>Footer</h1></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row align-items-center" id="footerelementswrap">
+
+                    <ul class="footerelements">
+                        <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+            
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/main.js"></script>
+</body>
+
+</html>

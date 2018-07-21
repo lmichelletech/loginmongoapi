@@ -1,0 +1,126 @@
+
+  body  { margin: 0; width:100vw; height: 100vh;}
+
+  .container-fluid{
+    left:0px;
+    padding: 0;
+  }
+  
+  .no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .no-gutters .col,
+  .no-gutters [class*="col-"] {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+
+  .row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+
+  .nav {
+    margin-left: -15px;
+    min-height: 80px;
+    background-color: #0099cc;
+    color: white;
+    padding: 20px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: white;
+}
+
+#menu{
+  justify-content: space-between
+}
+
+.friendly{
+  background-color: #ff9900;
+  margin-left: -15px;
+  color: #808080;
+  padding: 10px;
+}
+
+.social{
+ padding-left: 9px;
+}
+
+.social i{
+  padding: 10px;
+  color: white;
+  font-size: 160%;
+}
+
+#name{
+  padding-left: 20px;
+}
+
+#leftsidebar{
+  background-color: #307cc2;
+  min-height: 60vh;
+}
+
+#authortools{
+  background-color: transparent;
+  padding: 5px;
+}
+
+#authortoolswrap{
+background-color: pink;
+}
+
+#authorarticles{
+  padding:10px;
+}
+
+#newarticle a{
+    text-decoration: none;
+    color: white;
+}
+
+.authortoolsfilter{
+    padding: 10px;
+    color: white;
+  }
+  
+  .authortoolsfilter li{
+    list-style-type: none;
+    display: flex;
+    padding: 10px;
+  }
+  
+  
+  .authortoolsfilter i{
+    padding: 10px;
+    margin-top: -5px;
+  }
+  
+  .more{
+    margin:  0;
+    padding: 00;
+  }
+  
+  #footerelementswrap{
+    padding: 10px;
+    color: white;
+  }
+  
+  .footerelements li{
+    list-style-type: none;
+    display: flex;
+    padding: 10px;
+  }
+  
+  .footerelements i{
+    padding: 10px;
+    margin-top: -5px;
+  }
+  

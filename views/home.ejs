@@ -1,32 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Homepage</title>
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="/main.css"> -->
     <link rel="stylesheet" href="/home.css">
 </head>
+
 <body>
-    <h1>Home</h1>
-    <!-- You should not be seeing this unless you're signed in. -->
-    <nav class="nav">
-        <div>
-           Hi <%= user.name.split(' ')[0] %>
+    <div class="container-fluid">
+    
+        <div class="nav row no-gutters align-items-center">
+            <div class="col-sm-8">
+                <div class="row align-items-center"><h1>Home</h1></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row align-items-center" id="menu">
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/profile">Profile</a>
+                    <a href="/signout">Sign-Out</a>
+                </div>
+            </div>
         </div>
-        <div>
-            <a href="/profile">Profile</a>
-            <a href="/signout">Sign-Out</a>
+
+        <div class="row no-gutters align-items-center friendly">
+            <div class="col-md-8" id="name">Hi
+                <%= user.name.split(' ')[0] %>
+            </div>
+            <div class="col-md-4">
+                <div class="row social">
+                    <div><i class="fab fa-facebook"></i></div>
+                    <div><i class="fab fa-tumblr-square"></i></div>
+                    <div><i class="fab fa-blogger"></i></div>
+                    <div><i class="fab fa-google-plus-square"></i></div>
+                </div>
+                
+            </div>
         </div>
-    </nav>
-    <div id="container">
-        <div class="col-side" id="col1">Left</div>
-        <div class="col" id="col2">Center</div>
-        <div class="col-side" id="col3">Right</div>
-    </div>
+
+
+
+
+
+
+
+        <div class="row no-gutters align-items-center" id="articlesection">
+            <div class="col-sm-3">
+                <div class="row align-items-start" id="leftsidebar">
+                    <div class="col align-self-start" id="categories">
+                        <div class="row categoryheader">categories</div>
+                        <ul class="articlecategory">
+                            <li id="art"><i class="fas fa-paint-brush"></i> Art</li>
+                            <li id="news"><i class="fas fa-newspaper"></i> News</li>
+                            <li id="entertainment"><i class="fas fa-headphones-alt"></i> Entertainment</li>
+                            <li id="tech"><i class="fas fa-code"></i> Technology</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 align-self-start">
+                <div class="row align-items-start">
+                    <div class="col align-self-start" id="recentarticles">
+                        <div class="row recentarticleheader">Recent Articles</div>
+                        <div class="homearticlewrap">
+                                <div class="articletitle">Article Title</div>
+                                <div class="articleexcerpt">
+                                    <p>uhsuh;hd;shca;  dsch;h  sdhsd;dhc;sha </p>
+                                    <a class="more" href="#">Read More</a>
+                                </div>
+
+                                <div class="articlefooter">
+                                    <div class="articleinfo row">
+                                        <div id="articlecategory" class="col">
+                                            <i class="fas fa-book"></i>
+                                        </div>
+                                        <div id="date" class="col">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </div>
+                                        <div id="author" class="col">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div id="commenttotal" class="col">
+                                            <i class="fas fa-sort-amount-up"></i>
+                                        </div>
+                                        <div id="votes" class="col">
+                                            <i class="fas fa-thumbs-up"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-3">
+                <div class="row align-items-center" id="rightsidebar">
+                    <div class="col align-self-centert" id="popular">
+                        <div class="row populararticleheader">Popular Articles</div>
+                        <div class="row poparticle">
+                                <div>
+                                    <i class="fas fa-paint-brush"></i>
+                                </div>
+                                <div>
+                                    Art
+                                </div>
+                            </div>
+                            <div class="row poparticle">
+                                <div>
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <div>
+                                    News
+                                </div>
+                            </div>
+                            <div class="row poparticle">
+                                <div>
+                                    <i class="fas fa-headphones-alt"></i>
+                                </div>
+                                <div>
+                                    Entertainment
+                                </div>
+                            </div>
+                            <div class="row poparticle">
+                                <div>
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div>
+                                    Technology
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+
+
+        <div id="footer" class="nav row no-gutters align-items-center">
+                <div class="col-sm-6">
+                    <div class="row align-items-center"><h1>Footer</h1></div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row align-items-center" id="footerelementswrap">
+    
+                        <ul class="footerelements">
+                            <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+            
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/main.js"></script>
 </body>
+
 </html>

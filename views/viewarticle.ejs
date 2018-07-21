@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Submit Article</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/article.css">
+</head>
+<body>
+    <div id="container">
+        <div id="nav">
+            
+            <h1>Submit Article</h1>
+            <div class="nav">
+                <div>Hi </div>
+                <div>
+                    <a href="/home">Home</a>
+                    <a href="/updateprofile">Update</a>
+                    <a href="/signout">Sign-Out</a>
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="content">
+            <div class="feedback">
+                <% if (message.length) { %>
+                <div class="flash"><%= message %></div>
+                <% } %>
+            </div>
+            <div class="articlewrap">
+                <div class="articletitle">title</div>
+                <div class="articlebody row1">
+                    
+                <p>
+            
+                </p>
+                </div>
+                <div class="articletags row2">
+                    <div id="tags">tags</div>
+                    <div id="share"><div id="share"><i class="fas fa-share-alt"></i></div></div>
+                </div>
+                <div class="articleinfo row3">
+                    <div id="category"><i class="fas fa-book"></i></div>
+                    <div id="date"><i class="far fa-calendar-alt"></i></div>
+                    <div id="author"><i class="fas fa-user"></i></div>
+                    <div id="commenttotal"><i class="fas fa-sort-amount-up"></i></div>
+                    <div id="votes"><i class="fas fa-thumbs-up"></i></div>
+                </div>
+                <div class="articlecomments row4">row 3 comments</div>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="/main.js"></script>
+</body>
+</html>
