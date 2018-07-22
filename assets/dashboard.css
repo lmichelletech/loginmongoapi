@@ -74,14 +74,14 @@
 }
 
 #authortoolswrap{
-background-color: pink;
+background-color: white;
 }
 
 #authorarticles{
   padding:10px;
 }
 
-#newarticle a{
+#createarticle a{
     text-decoration: none;
     color: white;
 }

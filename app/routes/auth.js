@@ -1,6 +1,7 @@
 const asynq = require('async');
 //loads user schema from models to communicate with the database
 const User = require('../models/user');
+const Article = require('../models/article');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
@@ -80,8 +81,6 @@ module.exports = function(app, passport, isLoggedIn){
     }));
 
    
-
-
     
 
     // Handle password recovery
@@ -139,7 +138,7 @@ module.exports = function(app, passport, isLoggedIn){
       console.log('password reset email sent');
     });
   });
-
+ 
   app.get('/passwordreset/:token', function (req, res) {
     User.findOne({ 'resetPasswordToken': req.params.token, 'resetPasswordExpires': { $gt: Date.now() } },
       function (err, user) {
@@ -154,6 +153,34 @@ module.exports = function(app, passport, isLoggedIn){
 
       });
   });
+
+  app.get('/dashboard', function(req, res){
+    Article.find({}, function (err, data){
+            if(err){
+              console.log(err);
+            }
+            else {
+                if(!data){
+                  req.flash('dashboard-msg', 'No articles found.');
+                  return res.redirect('/dashboard');
+                }
+                else{
+                  console.log("data count : " + data.length);
+                  req.flash('dashboard-msg', 'Record found')
+                  res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
+                  user : req.user, articles: data});
+                }
+              
+            }
+        
+        })
+})
+
+
+
+
+
+
 
   app.post('/passwordreset/:token', function (req, res) {
     asynq.waterfall([

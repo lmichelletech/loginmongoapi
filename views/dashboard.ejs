@@ -59,7 +59,7 @@
                             <div class="row authortoolsheader"></div>
                                 
                             <ul class="authortoolsfilter">
-                                <li id="newarticle"><a href="/newarticle"><i class="fas fa-plus-square"></i> New</li></a>
+                                <li id="createarticle"><a href="/createarticle"><i class="fas fa-plus-square"></i> New</li></a>
                             </ul>
 
                         </div>
@@ -81,7 +81,15 @@
             
             <div class="col-sm-9 align-self-start">
                     <div class="blog_post">
-                	
+                        
+
+                       
+                        
+                            <% if (typeof articles !== 'undefined' && articles.length > 0) {%>
+                              <%for (var i = 0; i < articles.length; i++) { %>
+                                
+                              
+                         
                             <div class="blog">
                                 
                                 <div class="image">
@@ -89,22 +97,17 @@
                                     <a href="#"><img src="images/image_1000x400.jpg" alt=""><span class="overlay"></span></a>
                                 
                                 </div>
-                                
+         
                                 <div class="row">
                                 
                                     <div class="col-sm-2">
-                                        <div class="date">
-                                        
-                                        <span>18</span>
-                                        
-                                        <cite>Aug</cite>
-                                        
-                                        </div>
+                                        <div class="articledate"><%= format.date(new Date(articles[i].articledate), 'yyyy-mm-dd').date %></div>
+                                        <div class="articlecategory"><%= articles[i].category %></div>
                                     </div>
                                     
                                     <div class="col-sm-10">
                                         
-                                        <h2><a href="#">Title</a></h2>
+                                        <h2 class="articletitle"><a href="#"><%= articles[i].title %></a></h2>
                                         
                                         <div class="post-meta">
                                             <span><i class="far fa-trash-alt"></i> <a href="#">Delete</a> </span>
@@ -112,9 +115,9 @@
                                             <span><i class="far fa-eye-slash"></i> <a href="#">Hide</a></span>
                                         </div>
                                         
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-        
-                                        <a class="more" href="#">Read More</a>
+                                        <p class="articletext"><%= articles[i].text.substring(0, 50) %></p>
+                                        <p class="articletags"><%= articles[i].tags %></p>
+                                        <a id="<%= articles[i]._id %>" class="more" href="#">Read More</a>
                                         
                                     </div>                                
                                 
@@ -123,7 +126,9 @@
                             </div>
                             
                             <hr>
-                                                          
+                                  
+                            <%}%>
+                            <% } %>
                         </div>
             </div>
         </div>

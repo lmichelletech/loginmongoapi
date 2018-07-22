@@ -1,23 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
-//Define a schema
-// var Schema = mongoose.Schema;
-// // Create an instance of model Schema
-// var userSchema = new Schema({
-//     email: {type: String,lowercase: true, trim: true},
-//     password: String,
-//     name: {type: String, trim: true},
-//     emailConfirmed: {type: Boolean, default: false},
-//     birthdate: Date,
-//     emailConfirmationToken: String,
-//     resetPasswordToken: String,
-//     resetPasswordExpires: Number
-// });
-
 //all in one line
 const userSchema = mongoose.Schema({
-    email: {type: String,lowercase: true, trim: true},
+    email: {type: String, lowercase: true, trim: true},
     password: String,
     name: {type: String, trim: true},
     birthdate: Date,

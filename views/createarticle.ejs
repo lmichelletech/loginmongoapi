@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
         crossorigin="anonymous">
     
-    <link rel="stylesheet" href="/newarticle.css">
+    <link rel="stylesheet" href="/createarticle.css">
 </head>
 
 <body>
@@ -51,16 +51,16 @@
 
 
 
-        <div class="row no-gutters" id="newarticlewrap">
+        <div class="row no-gutters" id="createarticlewrap">
             <div class="col-sm-12 align-self-center">
-                <div id="newarticleform">
-                    <form action="/newarticle" class="justify-content-center" method="POST">
+                <div id="createarticleform">
+                    <form action="/createarticle" class="justify-content-center" method="POST">
 
                         <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="title">Article Title</label>
-                                        <input type="text" class="form-control form-control-lg" placeholder="title">
+                                        <input name="title" type="text" class="form-control form-control-lg" placeholder="title">
                                     </div>
 
                                 </div>
@@ -69,7 +69,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="articlebody">Article Body</label>
-                                        <textarea class="form-control" id="articlebody" rows="3" placeholder="body"></textarea>
+                                        <textarea name="text" class="form-control" id="articlebody" rows="3" placeholder="body"></textarea>
                                     </div>
                                 </div>
                         </div>
@@ -77,42 +77,34 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="sr-only">Tags</label>
-                                        <input type="text" class="form-control form-control-lg" placeholder="tags">
+                                        <input name="tags" type="text" class="form-control form-control-lg" placeholder="tags">
                                     </div>
                                 </div>
                         </div>
                         <div class="row catcheck">
                                 <div class="col">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                        <label class="form-check-label" for="inlineRadio1">Art</label>
+                                        <input checked = "checked" class="form-check-input" type="radio" name="category" id="category1" value="option1">
+                                        <label class="form-check-label" for="category1">Design</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                        <label class="form-check-label" for="inlineRadio2">News</label>
+                                        <input class="form-check-input" type="radio" name="category" id="category2" value="option2">
+                                        <label class="form-check-label" for="category2">DIY</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                        <label class="form-check-label" for="inlineRadio3">Entertainment</label>
+                                        <input class="form-check-input" type="radio" name="category" id="category3" value="option3">
+                                        <label class="form-check-label" for="category3">Gaming</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option4">
-                                        <label class="form-check-label" for="inlineRadio4">Tech</label>
+                                        <input class="form-check-input" type="radio" name="category" id="category4" value="option4">
+                                        <label class="form-check-label" for="category4">Code</label>
                                     </div>
                                 </div>
                         </div>
-                        <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="articleimg">Image</label>
-                                        <input type="file" class="form-control-file" id="articleimg">
-                                    </div>
-                                </div>
-                        </div>
+                        
 
                         <div class="row">
                                 <div class="col">
-
                                     <button type="submit" class="btn btn-secondary btn-lg">Submit</button>
                                 </div>
                         </div>

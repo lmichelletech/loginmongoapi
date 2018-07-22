@@ -15,21 +15,24 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-    
-        <div class="nav row no-gutters align-items-center">
-            <div class="col-sm-8">
-                <div class="row align-items-center"><h1>Home</h1></div>
-            </div>
-            <div class="col-sm-4">
-                <div class="row align-items-center" id="menu">
-                    <a href="/dashboard">Dashboard</a>
-                    <a href="/profile">Profile</a>
-                    <a href="/signout">Sign-Out</a>
+    <!-- Fixed navbar -->
+    <nav id="nav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+                <div id="headertitle" class="col-sm-6">
+                        <h1>Home</h1>
                 </div>
-            </div>
+                <div id="menu" class="col-sm-6">
+                        <a href="/dashboard">Dashboard</a>
+                        <a href="/profile">Profile</a>
+                        <a href="/signout">Sign-Out</a>
+                </div>
         </div>
+    </nav>
 
+
+
+
+    <div class="container-fluid">
         <div class="row no-gutters align-items-center friendly">
             <div class="col-md-8" id="name">Hi
                 <%= user.name.split(' ')[0] %>
@@ -46,29 +49,24 @@
         </div>
 
 
-
-
-
-
-
         <div class="row no-gutters align-items-center" id="articlesection">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <div class="row align-items-start" id="leftsidebar">
                     <div class="col align-self-start" id="categories">
-                        <div class="row categoryheader">categories</div>
+                        <div class="row colheader">categories</div>
                         <ul class="articlecategory">
-                            <li id="art"><i class="fas fa-paint-brush"></i> Art</li>
-                            <li id="news"><i class="fas fa-newspaper"></i> News</li>
-                            <li id="entertainment"><i class="fas fa-headphones-alt"></i> Entertainment</li>
-                            <li id="tech"><i class="fas fa-code"></i> Technology</li>
+                            <li id="art"><i class="fas fa-paint-brush"></i> Design</li>
+                            <li id="news"><i class="fas fa-newspaper"></i> DIY</li>
+                            <li id="entertainment"><i class="fas fa-gamepad"></i></i> Gaming</li>
+                            <li id="tech"><i class="fas fa-code"></i> Code</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 align-self-start">
+            <div class="col-sm-8 align-self-start">
                 <div class="row align-items-start">
                     <div class="col align-self-start" id="recentarticles">
-                        <div class="row recentarticleheader">Recent Articles</div>
+                        <div class="row colheader">Recent Articles</div>
                         <div class="homearticlewrap">
                                 <div class="articletitle">Article Title</div>
                                 <div class="articleexcerpt">
@@ -100,42 +98,13 @@
                 </div>
             </div>
             
-            <div class="col-sm-3">
-                <div class="row align-items-center" id="rightsidebar">
+            <div class="col-sm-2">
+                <div class="row" id="rightsidebar">
                     <div class="col align-self-centert" id="popular">
-                        <div class="row populararticleheader">Popular Articles</div>
+                        <div class="row colheader">Popular Articles</div>
                         <div class="row poparticle">
-                                <div>
-                                    <i class="fas fa-paint-brush"></i>
-                                </div>
-                                <div>
-                                    Art
-                                </div>
-                            </div>
-                            <div class="row poparticle">
-                                <div>
-                                    <i class="fas fa-newspaper"></i>
-                                </div>
-                                <div>
-                                    News
-                                </div>
-                            </div>
-                            <div class="row poparticle">
-                                <div>
-                                    <i class="fas fa-headphones-alt"></i>
-                                </div>
-                                <div>
-                                    Entertainment
-                                </div>
-                            </div>
-                            <div class="row poparticle">
-                                <div>
-                                    <i class="fas fa-code"></i>
-                                </div>
-                                <div>
-                                    Technology
-                                </div>
-                            </div>
+                                
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,25 +113,28 @@
       
 
 
-        <div id="footer" class="nav row no-gutters align-items-center">
-                <div class="col-sm-6">
-                    <div class="row align-items-center"><h1>Footer</h1></div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="row align-items-center" id="footerelementswrap">
-    
-                        <ul class="footerelements">
-                            <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
         
-
 
             
 
+        <footer class="footer">
+            <div class="container">
+                  <p class="text-muted">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                    <h1>Footer</h1>
+                            </div>
+                            <div class="col-sm-8">
+                                <ul class="footerelements">
+                                    <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
+                                </ul>
+                            </div>
+                        </div>           
+                                
+                  </p>
+            </div>
+        </footer>
+          
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/main.js"></script>
 </body>

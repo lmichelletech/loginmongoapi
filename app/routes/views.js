@@ -1,4 +1,6 @@
 const format = require('../methods/format');
+const Article = require('../models/article');
+
 //hiding and showing occurs server side using browser request and response and passport
 module.exports = function(app, isLoggedIn){
     app.get('/', function(req, res){
@@ -30,11 +32,6 @@ module.exports = function(app, isLoggedIn){
             res.redirect('/home');
         }
         else{
-            // Another way to do it
-            // req.flash("sign-in-msg","Error Occured");
-            // res.locals.messages = req.flash();
-            // res.render('edit', { title: 'myApp'});
-
             res.render('signin', { message: req.flash('sign-in-msg')});
         }
     })
@@ -55,7 +52,7 @@ module.exports = function(app, isLoggedIn){
             });
         }
         else{
-            res.render('signin', { message: req.flash('sign-in-msg')});
+            res.redirect('signin', { message: req.flash('sign-in-msg')});
         }
     })
 
@@ -71,7 +68,7 @@ module.exports = function(app, isLoggedIn){
             res.redirect('signin', { message: req.flash('sign-in-msg')});
         }
     })
-    
+
     app.get('/passwordrecovery', function(req, res){
         res.render('passwordrecovery', { message: req.flash('password-recovery-msg')});
     })
@@ -80,45 +77,138 @@ module.exports = function(app, isLoggedIn){
         res.render('passwordreset.ejs', { message: req.flash('password-reset-msg')});
     })
 
-    app.get('/articlehome', function(req, res){
-        res.render('home.ejs', { message: req.flash('submit-article-msg')});
-    })
-    // app.post('/createarticle', function(req, res){
-    //     res.render('articleview.ejs', { message: req.flash('submit-article-msg')});
-    // })
 
-    app.get('/dashboard', function(req, res){
-        res.render('dashboard.ejs', { message: req.flash('dashboard-msg')});
-    })
+    
 
-    app.get('/deletearticle', function(req, res){
-        res.render('dashboard.ejs', { message: req.flash('dashboard-msg')});
-    })
 
-    app.get('/articlelist', function(req, res){
-        res.render('dashboard.ejs', { message: req.flash('dashboard-msg')});
-    })
 
-    app.get('/deletearticle', function(req, res){
-        res.render('dashboard.ejs', { message: req.flash('dashboard-msg')});
-    })
-    app.post('/updatearticle', function(req, res){
-        res.redirect('viewarticle.ejs', { message: req.flash('view-article-msg')});
-    })
-    app.post('/addarticlecomment', function(req, res){
-        res.redirect('viewarticle.ejs', { message: req.flash('view-article-msg')});
-    })
-    app.post('/addvote', function(req, res){
-        res.render('viewarticle.ejs', { message: req.flash('view-article-msg')});
-    })
 
-    app.get('/newarticle', function(req, res){
-        res.render('newarticle.ejs', { message: req.flash('new-article-msg')});
-    })
 
-    app.post('/newarticle', function(req, res){
-        res.render('newarticle.ejs', { message: req.flash('new-article-msg')});
+
+
+
+
+
+
+
+
+    app.get('/deletearticlerecord', isLoggedIn, function(req, res){
+        if(req.user){
+            res.render('dashboard.ejs', { message: req.flash('dashboard-msg'), 
+            user: req.user});
+        }
+        else{
+            res.redirect('/signin');
+        }
     })
+    
+
+    app.get('/deletearticle', isLoggedIn, function(req, res){
+        if(req.user){
+            res.render('updatearticle.ejs', { message: req.flash('update-article-msg'), 
+            user: req.user});
+        }
+        else{
+            res.redirect('/signin');
+        }
+    })
+    
+    app.get('/articlelist', isLoggedIn, function(req, res){
+        if(req.user){
+            res.render('dashboard.ejs', { message: req.flash('dashboard-msg'), 
+            user: req.user});
+        }
+        else{
+            res.redirect('/signin');
+        }
+    })
+    
+    app.get('/updatearticle', isLoggedIn, function(req, res){
+        if(req.user){
+            res.render('updatearticle', { 
+                message: req.flash('update-article-msg'), 
+                user: req.user
+            });
+        }
+        else{
+            res.redirect('/signin');
+        }
+    })
+    
+    app.get('/addarticlecomment', isLoggedIn, function(req, res){
+       if(req.user){
+            res.render('viewarticle', { 
+                message: req.flash('view-article-msg'), 
+                user: req.user
+            });
+        }
+        else{
+            res.redirect('/signin');
+        }
+    })
+    
+
+    app.get('/addvote', isLoggedIn, function(req, res){
+        if(req.user){
+            res.render('viewarticle', { 
+                message: req.flash('view-article-msg'), 
+                user: req.user
+            });
+        }
+        else{
+            res.redirect('/signin');
+        }
+    })
+    
+
+    
+    app.get('/createarticle', isLoggedIn, function(req, res){
+        if(req.user){
+            res.render('createarticle', { 
+                message: req.flash('create-article-msg'), 
+                user: req.user,
+                article: req.article
+            });
+        }
+        else{
+            res.redirect('/signin');
+        }
+    })
+    
+ 
+
+    app.post('/createarticle', isLoggedIn, function(req, res){
+        if(req.user){
+            var current_date=new Date();
+            var art = new Article({
+                title: req.body.title,
+                user_id: req.user,
+                text: req.body.text,
+                articledate: current_date,
+                category: req.body.category,
+                tags: req.body.tags
+            });
+        
+            art.save(function(err) {
+                if(err){
+                    req.flash('create-article-msg', 'create error in database')
+                    console.log('an error ocurred saving to database...');
+                    return res.render('createarticle.ejs');
+                }
+                else {
+                    req.flash('create-article-msg', 'created article successfully...')
+                    console.log('saved article successfully...');
+                }
+                res.redirect('/dashboard');
+            });
+
+        }
+        else{
+            res.redirect('/signin');
+        }
+    })
+    
+    
 
     app.get('*', function(req, res){
         res.render('404');
