@@ -23,17 +23,18 @@
             </div>
             <div class="col-sm-4">
                 <div class="row align-items-center" id="menu">
-                    <a href="/home">Home</a>
-                    <a href="/profile">Profile</a>
-                    <a href="/signout">Sign-Out</a>
+                    <a id="homepage" href="/home">Home</a>
+                    <a class="currentpage" id="dashboardpage" href="/dashboard">Dashboard</a>
+                    <a id="profilepage" href="/profile">Profile</a>
+                    <a id="signoutpage" href="/signout">Sign-Out</a>
                 </div>
             </div>
         </div>
 
         <div class="row no-gutters align-items-center friendly">
-            <div class="col-md-8" id="name">
-                Articles
-            </div>
+                <div class="col-md-8" id="name">Hi
+                    <%= user.name.split(' ')[0] %>
+                </div>
             <div class="col-md-4">
                 <div class="row social">
                     <div><i class="fab fa-facebook"></i></div>

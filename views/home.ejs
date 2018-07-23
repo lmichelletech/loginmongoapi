@@ -11,42 +11,45 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
         crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="/main.css"> -->
+    
+    <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/home.css">
 </head>
 
 <body>
-    <!-- Fixed navbar -->
-    <nav id="nav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-                <div id="headertitle" class="col-sm-6">
-                        <h1>Home</h1>
-                </div>
-                <div id="menu" class="col-sm-6">
-                        <a href="/dashboard">Dashboard</a>
-                        <a href="/profile">Profile</a>
-                        <a href="/signout">Sign-Out</a>
-                </div>
-        </div>
-    </nav>
-
-
+    
 
 
     <div class="container-fluid">
-        <div class="row no-gutters align-items-center friendly">
-            <div class="col-md-8" id="name">Hi
-                <%= user.name.split(' ')[0] %>
-            </div>
-            <div class="col-md-4">
-                <div class="row social">
-                    <div><i class="fab fa-facebook"></i></div>
-                    <div><i class="fab fa-tumblr-square"></i></div>
-                    <div><i class="fab fa-blogger"></i></div>
-                    <div><i class="fab fa-google-plus-square"></i></div>
+            <div class="nav row no-gutters align-items-center">
+                    <div class="col-sm-8">
+                        <div class="row align-items-center"><h1>Home</h1></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row align-items-center" id="menu">
+                            <a class="currentpage" id="homepage" href="/home">Home</a>
+                            <a id="dashboardpage" href="/dashboard">Dashboard</a>
+                            <a id="profilepage" href="/profile">Profile</a>
+                            <a id="signoutpage" href="/signout">Sign-Out</a>
+                        </div>
+                    </div>
                 </div>
-                
-            </div>
-        </div>
+        
+                <div class="row no-gutters align-items-center friendly">
+                        <div class="col-md-8" id="name">Hi
+                            <%= user.name.split(' ')[0] %>
+                        </div>
+                    <div class="col-md-4">
+                        <div class="row social">
+                            <div><i class="fab fa-facebook"></i></div>
+                            <div><i class="fab fa-tumblr-square"></i></div>
+                            <div><i class="fab fa-blogger"></i></div>
+                            <div><i class="fab fa-google-plus-square"></i></div>
+                        </div>
+                        
+                    </div>
+                </div>
+        
 
 
         <div class="row no-gutters align-items-center" id="articlesection">
@@ -68,10 +71,14 @@
                     <div class="col align-self-start" id="recentarticles">
                         <div class="row colheader">Recent Articles</div>
                         <div class="homearticlewrap">
-                                <div class="articletitle">Article Title</div>
+                                <% if (typeof articles !== 'undefined' && articles.length > 0) {%>
+                                    <%for (var i = 0; i < articles.length; i++) { %>
+
+
+                                <div class="articletitle"><%= articles[i].title %></div>
                                 <div class="articleexcerpt">
-                                    <p>uhsuh;hd;shca;  dsch;h  sdhsd;dhc;sha </p>
-                                    <a class="more" href="#">Read More</a>
+                                    <p><%= articles[i].text.substring(0, 50) %></p>
+                                    <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/:<%=articles[i]._id %>">Read More</a>
                                 </div>
 
                                 <div class="articlefooter">
@@ -93,6 +100,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
+                               
+                                <% }} %>
                             </div>
                     </div>
                 </div>

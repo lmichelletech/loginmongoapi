@@ -1,42 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Profile</title>
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="/dashboard.css">
 </head>
+
 <body>
-    <h1>Profile</h1>
-    <!-- <div>
-        This should only be seen when user is signed in.
-        This is where you can show the user their avatar and all sign up information.
-        Could add preferences,security options, memberships, etc.
+    <div class="container-fluid">
+    
+        <div class="nav row no-gutters align-items-center">
+            <div class="col-sm-8">
+                <div class="row align-items-center"><h1>Profile</h1></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row align-items-center" id="menu">
+                    <a id="homepage" href="/home">Home</a>
+                    <a id="dashboardpage" href="/dashboard">Dashboard</a>
+                    <a class="currentpage" id="profilepage" href="/profile">Profile</a>
+                    <a id="signoutpage" href="/signout">Sign-Out</a>
+                </div>
+            </div>
+        </div>
 
-        <div class="links-container">
+        <div class="row no-gutters align-items-center friendly">
+                <div class="col-md-8" id="name">Hi
+                    <%= user.name.split(' ')[0] %>
+                </div>
+            <div class="col-md-4">
+                <div class="row social">
+                    <div><i class="fab fa-facebook"></i></div>
+                    <div><i class="fab fa-tumblr-square"></i></div>
+                    <div><i class="fab fa-blogger"></i></div>
+                    <div><i class="fab fa-google-plus-square"></i></div>
+                </div>
                 
-            <div>Already have an account? <a href="/signin">Sign-In</a></div>
-            <div>Forgot your password? <a href="/passwordrecovery">Recover</a></div>
-            
+            </div>
         </div>
-    </div> -->
-    <nav class="nav">
-        <div>Hi <%= user.name %></div>
-        <div>
-            <a href="/home">Home</a>
-            <a href="/createarticle">Submit Article</a>
-            <a href="/updateprofile">Update</a>
-            <a href="/signout">Sign-Out</a>
-        </div>
-    </nav>
 
-    <div class="container">
-        <div><%= user.name %></div>
-        <div><%= user.email %></div>
-        <div><%= user.birthdate %></div>
+
+
+
+
+
+
+        <div class="row no-gutters" id="authortoolswrap">
+            <div class="col-sm-3">
+                <div class="row align-items-start" id="leftsidebar">
+                    <div class="col align-self-start" id="authortools">
+                        <div>
+                            <div class="row authortoolsheader"></div>
+                                
+                            <ul class="authortoolsfilter">
+                                <li id="createarticle"><a href="/createarticle"><i class="fas fa-plus-square"></i> New</li></a>
+                            </ul>
+
+                        </div>
+                        <div>
+                            <div class="row authortoolsheader">Filter</div>
+                                
+                            <ul class="authortoolsfilter">
+                                <li id="filtercategory"><i class="far fa-address-book"></i> Category</li>
+                                <li id="filterpopularity"><i class="fas fa-users"></i> Popularity</li>
+                                <li id="filtervotes"><i class="fas fa-star"></i> Votes</li>
+                                <li id="filterage"><i class="fab fa-algolia"></i> Latest</li>
+                                <li id="commenttotal"><i class="fas fa-comments"></i> Comments</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-9 align-self-start">
+                    <div class="profilecontent">
+                            
+                        <div><%= user.name %></div>
+                        <div><%= user.email %></div>
+                        <div><%= user.birthdate %></div>
+                           
+                    </div>
+            </div>
+        </div>
+
+      
+
+        <div id="footer" class="nav row no-gutters align-items-center">
+            <div class="col-sm-6">
+                <div class="row align-items-center"><h1>Footer</h1></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row align-items-center" id="footerelementswrap">
+
+                    <ul class="footerelements">
+                        <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+            
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="/main.js"></script>
+    <script src="/main.js"></script>
 </body>
+
 </html>

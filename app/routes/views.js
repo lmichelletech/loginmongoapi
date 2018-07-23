@@ -18,14 +18,40 @@ module.exports = function (app, isLoggedIn) {
     // when you use redirect it redirects to the route
     // when you use render it literally constructs the html
     // passport makes user available in the request object
-    app.get('/home', isLoggedIn, function (req, res) {
+
+
+
+
+
+    app.get('/home', isLoggedIn, function(req, res){
         if (req.user) {
-            res.render('home', { user: req.user });
+            var cutoff = new Date();
+            cutoff.setDate(cutoff.getDate()-5);
+            Article.find({"articledate": {$gt: cutoff}}, function (err, data){
+            if(err){
+              console.log(err);
+            }
+            else {
+                if(!data){
+                  req.flash('home-msg', 'No articles found.');
+                  return res.render('/home');
+                }
+                else{
+                  console.log("data count : " + data.length);
+                  req.flash('home-msg', 'Record found')
+                  res.render('home.ejs', { message: req.flash('home-msg'),
+                  user : req.user, articles: data});
+                }
+              
+            }
+        
+            })
         }
         else {
             res.redirect('signin');
         }
     })
+    
 
     app.get('/signin', function (req, res) {
         if (req.isAuthenticated()) {
@@ -214,39 +240,51 @@ module.exports = function (app, isLoggedIn) {
 
 
 
-    app.get('/dashboard', function(req, res){
-        Article.find({}, function (err, data){
-            if(err){
-              console.log(err);
-            }
-            else {
-                if(!data){
-                  req.flash('dashboard-msg', 'No articles found.');
-                  return res.redirect('/dashboard');
+    app.get('/dashboard', isLoggedIn, function(req, res){
+        if (req.user) {
+            Article.find({}, function (err, data){
+                if(err){
+                console.log(err);
                 }
-                else{
-                  console.log("data count : " + data.length);
-                  req.flash('dashboard-msg', 'Record found')
-                  res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
-                  user : req.user, articles: data});
+                else {
+                    if(!data){
+                    req.flash('dashboard-msg', 'No articles found.');
+                    return res.redirect('/dashboard');
+                    }
+                    else{
+                    console.log("data count : " + data.length);
+                    req.flash('dashboard-msg', 'Record found')
+                    res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
+                    user : req.user, articles: data});
+                    }
+                
                 }
-              
-            }
-        
-        })
+            
+            })
+        }
+        else {
+            res.redirect('/signin');
+        }
     })
     
     
-    app.get('/dashboard/delete/:id', (req, res) => {
-      Article.find({ id: req.params.id }).exec(function (err, data) {
-          if (!err && data) {
-            console.log("deleted " + req.params.id);
-            Article.remove().exec();
-          } else {
-            console.log("Error deleting article!");
-            res.redirect('/dashboard', { message: req.flash('error deleting') });
-          }
-      });
+    app.get('/dashboard/delete/:id', isLoggedIn, (req, res) => {
+        if (req.user) {
+            Article.find({ id: req.params.id }).exec(function (err, data) {
+                if (!err && data) {
+                    console.log("deleted " + req.params.id);
+                    Article.remove().exec();
+                    res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
+                        user : req.user, articles: data});
+                } else {
+                    console.log("Error deleting article!");
+                    res.redirect('/dashboard', { message: req.flash('error deleting') });
+                }
+            });
+        }
+        else {
+            res.redirect('/signin');
+        }
     });
     
      
