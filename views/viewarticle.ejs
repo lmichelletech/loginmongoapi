@@ -1,61 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>View Article</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="/viewarticle.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="/dashboard.css">
 </head>
+
 <body>
-    <div id="container">
-        <div id="nav">
-            
-            <h1>View Article</h1>
-            <div class="nav">
-                <div>Hi </div>
-                <div>
+    <div class="container-fluid">
+    
+        <div class="nav row no-gutters align-items-center">
+            <div class="col-sm-8">
+                <div class="row align-items-center"><h1>View Article</h1></div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row align-items-center" id="menu">
                     <a href="/home">Home</a>
                     <a href="/dashboard">Dashboard</a>
                     <a href="/profile">Profile</a>
                     <a href="/signout">Sign-Out</a>
                 </div>
             </div>
-
         </div>
-        
-        <div id="content">
-            <div class="feedback">
-                <% if (message.length) { %>
-                <div class="flash"><%= message %></div>
-                <% } %>
+
+        <div class="row no-gutters align-items-center friendly">
+            <div class="col-md-8" id="name">
+                Article
             </div>
-            <div class="articlewrap">
-                <div class="articletitle">title</div>
-                <div class="articlebody row1">
-                    
-                <p>
+            <div class="col-md-4">
+                <div class="row social">
+                    <div><i class="fab fa-facebook"></i></div>
+                    <div><i class="fab fa-tumblr-square"></i></div>
+                    <div><i class="fab fa-blogger"></i></div>
+                    <div><i class="fab fa-google-plus-square"></i></div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="row no-gutters" id="authortoolswrap">
+            <div class="col-sm-3">
+                <div class="row align-items-start" id="leftsidebar">
+                    <div class="col align-self-start" id="authortools">
+                        <div>
+                            <div class="row authortoolsheader"></div>
+                                
+                            <ul class="authortoolsfilter">
+                                <li id="createarticle"><a href="/createarticle"><i class="fas fa-plus-square"></i> New</li></a>
+                            </ul>
+
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
             
-                </p>
+            <div class="col-sm-9 align-self-start">
+                    <div class="blog_post">
+                        
+                            <div class="feedback">
+                                <% if (message.length) { %>
+                                <div class="flash"><%= message %></div>
+                                <% } %>
+                            </div>
+                       
+                            <% if (typeof articles !== 'undefined' && articles.length > 0) {%>
+                            <%for (var i = 0; i < articles.length; i++) { %>
+                            
+                              
+                                
+                              
+                         
+                            <div class="blog">
+                                
+                                <div class="image">
+                                    
+                                    <a href="#"><img src="images/image_1000x400.jpg" alt=""><span class="overlay"></span></a>
+                                
+                                </div>
+         
+                                <div class="row">
+                                
+                                    <div class="col-sm-2">
+                                        <div class="articledate"><%= format.date(new Date(articles[i].articledate), 'yyyy-mm-dd').date %></div>
+                                        <div class="articlecategory"><%= articles[i].category %></div>
+                                    </div>
+                                    
+                                    <div class="col-sm-10">
+                                        
+                                        <h2 class="articletitle"><a href="#"><%= articles[i].title %></a></h2>
+                                        
+                                       
+                                        <p class="articletext"><%= articles[i].text %></p>
+                                        <p class="articletags"><h5>Tags</h5><%= articles[i].tags %></p>
+                                        
+                                    </div>                                
+                                
+                                </div>
+                                                    
+                            </div>
+                            
+                            <hr>
+                                  
+                           
+                            <% } }%>
+                        </div>
+            </div>
+        </div>
+
+      
+
+        <div id="footer" class="nav row no-gutters align-items-center">
+            <div class="col-sm-6">
+                <div class="row align-items-center"><h1>Footer</h1></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row align-items-center" id="footerelementswrap">
+
+                    <ul class="footerelements">
+                        <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
+                    </ul>
                 </div>
-                <div class="articletags row2">
-                    <div id="tags">tags</div>
-                    <div id="share"><div id="share"><i class="fas fa-share-alt"></i></div></div>
-                </div>
-                <div class="articleinfo row3">
-                    <div id="category"><i class="fas fa-book"></i></div>
-                    <div id="date"><i class="far fa-calendar-alt"></i></div>
-                    <div id="author"><i class="fas fa-user"></i></div>
-                    <div id="commenttotal"><i class="fas fa-sort-amount-up"></i></div>
-                    <div id="votes"><i class="fas fa-thumbs-up"></i></div>
-                </div>
-                <div class="articlecomments row4">row 3 comments</div>
             </div>
         </div>
     </div>
-    <div id="footer"></div>
+
+
+
+
+
+            
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="/main.js"></script>
+    <script src="/main.js"></script>
 </body>
+
 </html>

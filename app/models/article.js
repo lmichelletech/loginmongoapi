@@ -1,3 +1,4 @@
+var uuid = require('uuid');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
@@ -10,7 +11,6 @@ const articleSchema = mongoose.Schema({
     category: [String],
     likes: Number,
     tags: String
-
 });
 
 

@@ -154,34 +154,9 @@ module.exports = function(app, passport, isLoggedIn){
       });
   });
 
-  app.get('/dashboard', function(req, res){
-    Article.find({}, function (err, data){
-            if(err){
-              console.log(err);
-            }
-            else {
-                if(!data){
-                  req.flash('dashboard-msg', 'No articles found.');
-                  return res.redirect('/dashboard');
-                }
-                else{
-                  console.log("data count : " + data.length);
-                  req.flash('dashboard-msg', 'Record found')
-                  res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
-                  user : req.user, articles: data});
-                }
-              
-            }
-        
-        })
-})
 
 
-
-
-
-
-
+   
   app.post('/passwordreset/:token', function (req, res) {
     asynq.waterfall([
       function (done) {
