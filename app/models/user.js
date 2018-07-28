@@ -6,11 +6,14 @@ const userSchema = mongoose.Schema({
     email: {type: String, lowercase: true, trim: true},
     password: String,
     name: {type: String, trim: true},
+    title: String,
+    school: String,
     birthdate: Date,
     emailConfirmed: {type: Boolean, default: false},
     emailConfirmationToken: String,
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+    img: String
 });
 
 //generate hash

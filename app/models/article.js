@@ -1,16 +1,16 @@
-var uuid = require('uuid');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
 //all in one line
 const articleSchema = mongoose.Schema({
     title: String,
-    user_id: {type: String, trim: true},
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     text: String,
     articledate: Date,    
     category: [String],
     likes: Number,
     tags: String
+
 });
 
 

@@ -10,8 +10,9 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
         crossorigin="anonymous">
-    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/profile.css">
 </head>
 
 <body>
@@ -82,12 +83,32 @@
             
             <div class="col-sm-9 align-self-start">
                     <div class="profilecontent">
-                            
-                        <div><%= user.name %></div>
-                        <div><%= user.email %></div>
-                        <div><%= user.birthdate %></div>
-                           
+                            <div class="card">
+                                <img src="<%= user.img %>" alt="Image" style="width:100%">
+                                <h1><%= user.name %></h1>
+                                <p class="title"><%= user.title %></p>
+                                <p><%= user.school %></p>
+                                <p><%= user.email %></p>
+                                <p><%= user.birthdate %></p>
+                                <a href="#"><i class="fa fa-dribbble"></i></a> 
+                                <a href="#"><i class="fa fa-twitter"></i></a> 
+                                <a href="#"><i class="fa fa-linkedin"></i></a> 
+                                <a href="#"><i class="fa fa-facebook"></i></a> 
+                                <p><button>Author</button></p>
+                            </div>
+                        
+                            <div class="card">
+                                    <h4>Options</h4>
+                                    <p>Accessibility</p>
+                                    <p>Privacy</p>
+                                    <p>Visibility</p>
+                                    <p>Communications</p>
+                                    
+                                    <p><button>Options</button></p>
+                                </div>
                     </div>
+
+                    
             </div>
         </div>
 

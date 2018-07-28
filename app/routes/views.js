@@ -42,9 +42,7 @@ module.exports = function (app, isLoggedIn) {
                   res.render('home.ejs', { message: req.flash('home-msg'),
                   user : req.user, articles: data});
                 }
-              
             }
-        
             })
         }
         else {
@@ -162,71 +160,9 @@ module.exports = function (app, isLoggedIn) {
 
 
 
-    app.get('/viewarticle/:_id', isLoggedIn, function (req, res) {
-        if (req.user) {
-            Article.find({ id: req.params.id }, function (err, data) {
-                if (err) return res.send('Error viewing article! ' + err);
-                if (!data) return res.send('Invalid Article ID. No data with that ID.');
-                if (data) {
-                    console.log("article count ******* " + data.length + " " + data);
-                    res.render('viewarticle', {
-                        message: req.flash('view-article-msg'),
-                        user: req.user,
-                        articles: data
-                    });
-                }
-            });
-        }
-        else {
-            res.redirect('/signin');
-        }
-    });
+    
 
-
-
-    app.get('/createarticle', isLoggedIn, function (req, res) {
-        if (req.user) {
-            res.render('createarticle', {
-                message: req.flash('create-article-msg'),
-                user: req.user,
-                article: req.article
-            });
-        }
-        else {
-            res.redirect('/signin');
-        }
-    })
-
-    app.post('/createarticle', isLoggedIn, function (req, res) {
-        if (req.user) {
-            var current_date = new Date();
-            var art = new Article({
-                title: req.body.title,
-                user_id: req.user,
-                text: req.body.text,
-                articledate: current_date,
-                category: req.body.category,
-                tags: req.body.tags
-            });
-
-            art.save(function (err) {
-                if (err) {
-                    req.flash('create-article-msg', 'create error in database')
-                    console.log('an error ocurred saving to database...');
-                    return res.render('createarticle.ejs');
-                }
-                else {
-                    req.flash('create-article-msg', 'created article successfully...')
-                    console.log('saved article successfully...');
-                }
-                res.redirect('/dashboard');
-            });
-
-        }
-        else {
-            res.redirect('/signin');
-        }
-    })
+   
 
 
 
@@ -268,29 +204,21 @@ module.exports = function (app, isLoggedIn) {
     })
     
     
-    app.get('/dashboard/delete/:id', isLoggedIn, (req, res) => {
-        if (req.user) {
-            Article.find({ id: req.params.id }).exec(function (err, data) {
-                if (!err && data) {
-                    console.log("deleted " + req.params.id);
-                    Article.remove().exec();
-                    res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
-                        user : req.user, articles: data});
-                } else {
-                    console.log("Error deleting article!");
-                    res.redirect('/dashboard', { message: req.flash('error deleting') });
-                }
-            });
-        }
-        else {
-            res.redirect('/signin');
-        }
+    app.get('/dashboard/delete/:id', (req, res) => {
+        let id = req.params.id;
+        console.log("frank id " + id);
+        
+        Article.remove({"_id":req.params.id},function(err, result){
+            console.log("frank error " + err);
+            res.redirect('/dashboard');
+        })
     });
     
-     
+  
     app.get('/updatearticle/:_id', isLoggedIn, function (req, res) {
         if (req.user) {
-            Article.find({ id: req.params.id }, function (err, data) {
+            console.log("article id ******* " + req.params._id);
+            Article.findOne({id: req.params.id}, function (err, data) {
                 if (err) return res.send('Error getting article! ' + err);
                 if (!data) return res.send('No article exists with that ID.');
                 if (data) {
@@ -348,13 +276,109 @@ module.exports = function (app, isLoggedIn) {
 
 
 
+    app.get('/createarticle', isLoggedIn, function (req, res) {
+        if (req.user) {
+            res.render('createarticle', {
+                message: req.flash('create-article-msg'),
+                user: req.user,
+                article: req.article
+            });
+        }
+        else {
+            res.redirect('/signin');
+        }
+    })
+
+    app.post('/createarticle', function (req, res) {
+        
+            var current_date = new Date();
+            var art = new Article({
+                title: req.body.title,
+                user_id: req.user.id,
+                text: req.body.text,
+                articledate: current_date,
+                category: req.body.category,
+                tags: req.body.tags
+            })
+
+            art.save(function (err) {
+                if (err) {
+                    
+                    console.log('an error ocurred saving to database...' + err);
+                    res.redirect('/dashboard');
+                }
+                else {
+                    console.log('saved article successfully...');
+                    res.redirect('/dashboard');
+                }
+         
+
+        })
+    })
+
+       
+// app.get('/viewarticle/:id', (req, res) => {
+//     Article.find(art => {
+//         return art.id == req.params.id
+//     });
+
+    
+//     res.json(art || {});
+// })
+  
+
+// employeeController.show = function(req, res) {
+//     Employee.findOne({_id: req.params.id}).exec(function (err, employee) {
+//       if (err) {
+//         console.log("Error:", err);
+//       }
+//       else {
+//         res.render("../views/employees/show", {employee: employee});
+//       }
+//     });
+//   };
+
+// app.get('/viewarticle/:id', (req, res) => {
+//     let id = req.params.id;
+//     let test = req.body;
+//     id = id + "";
+//     console.log("view article " + id);
+//     Article.findById(test.id, function (err, data) {
+        
+//         if (err) return res.send('Error viewing article! ' + err);
+//         if (!data) return res.send('Invalid Article ID. No data with that ID.');
+//         if (data) {
+//             res.redirect('/viewarticle');
+//         }
+//     }
+
+// )})
+  
 
 
+    app.get('/viewarticle/:id', (req, res) => {
+        let id = req.params.id + "";
+        
+        console.log("view article params " + req.params.id + " body " + req.body + " id " + id);
+        Article.findById(req.params.id, function (err, articles) {
+            if (err) return res.send('Error viewing article! ' + err);
+            if (!articles) return res.send('Invalid Article ID. No data with that ID.');
+            if (articles) {
+                console.log("DATA : " + articles.title);
+                res.render('viewarticle', {
+                    message: req.flash('view-article-msg'),
+                    user: req.user,
+                    articles: articles
+                });
+                console.log("come on " + req.params.id);
+            }
+        });
+
+    })
 
 
-
-
-
+      
+    
 
     app.get('*', function (req, res) {
         res.render('404');

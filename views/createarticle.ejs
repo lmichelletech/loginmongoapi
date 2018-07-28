@@ -10,16 +10,17 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
         crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/createarticle.css">
 </head>
 
 <body>
     <div class="container-fluid">
-    
         <div class="nav row no-gutters align-items-center">
             <div class="col-sm-8">
-                <div class="row align-items-center"><h1>Dashboard</h1></div>
+                <div class="row align-items-center">
+                    <h1>Update Article</h1>
+                </div>
             </div>
             <div class="col-sm-4">
                 <div class="row align-items-center" id="menu">
@@ -32,17 +33,25 @@
         </div>
 
         <div class="row no-gutters align-items-center friendly">
-                <div class="col-md-8" id="name">Hi
-                    <%= user.name.split(' ')[0] %>
-                </div>
+            <div class="col-md-8" id="name">Hi
+                <%= user.name.split(' ')[0] %>
+            </div>
             <div class="col-md-4">
                 <div class="row social">
-                    <div><i class="fab fa-facebook"></i></div>
-                    <div><i class="fab fa-tumblr-square"></i></div>
-                    <div><i class="fab fa-blogger"></i></div>
-                    <div><i class="fab fa-google-plus-square"></i></div>
+                    <div>
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <div>
+                        <i class="fab fa-tumblr-square"></i>
+                    </div>
+                    <div>
+                        <i class="fab fa-blogger"></i>
+                    </div>
+                    <div>
+                        <i class="fab fa-google-plus-square"></i>
+                    </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -51,13 +60,20 @@
 
 
 
-
-        <div class="row no-gutters" id="createarticlewrap">
+        <div class="row no-gutters" id="articlewrap">
             <div class="col-sm-12 align-self-center">
-                <div id="createarticleform">
-                    <form action="/createarticle" class="justify-content-center" method="POST">
+                <div class="blog">
+                    <div class="feedback">
+                        <% if (message.length) { %>
+                            <div class="flash">
+                                <%= message %>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div id="articleform">
+                        <form action="/createarticle" class="justify-content-center form" method="POST">
 
-                        <div class="row">
+                            <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="title">Article Title</label>
@@ -65,27 +81,27 @@
                                     </div>
 
                                 </div>
-                        </div>
-                        <div class="row">
+                            </div>
+                            <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="articlebody">Article Body</label>
                                         <textarea name="text" class="form-control" id="articlebody" rows="3" placeholder="body"></textarea>
                                     </div>
                                 </div>
-                        </div>
-                        <div class="row">
+                            </div>
+                            <div class="row">
                                 <div class="col">
                                     <div class="form-group">
                                         <label class="sr-only">Tags</label>
                                         <input name="tags" type="text" class="form-control form-control-lg" placeholder="tags">
                                     </div>
                                 </div>
-                        </div>
-                        <div class="row catcheck">
+                            </div>
+                            <div class="row catcheck">
                                 <div class="col">
                                     <div class="form-check form-check-inline">
-                                        <input checked = "checked" class="form-check-input" type="radio" name="category" id="category1" value="Design">
+                                        <input checked="checked" class="form-check-input" type="radio" name="category" id="category1" value="Design">
                                         <label class="form-check-label" for="category1">Design</label>
                                     </div>
                                     <div class="form-check form-check-inline">
@@ -101,31 +117,35 @@
                                         <label class="form-check-label" for="category4">Code</label>
                                     </div>
                                 </div>
-                        </div>
-                        
+                            </div>
 
-                        <div class="row">
+
+                            <div class="row">
                                 <div class="col">
                                     <button type="submit" class="btn btn-secondary btn-lg">Submit</button>
                                 </div>
-                        </div>
-                    </form>
+                            </div>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
 
-      
+
 
         <div id="footer" class="nav row no-gutters align-items-center">
             <div class="col-sm-6">
-                <div class="row align-items-center"><h1>Footer</h1></div>
+                <div class="row align-items-center">
+                    <h1>Footer</h1>
+                </div>
             </div>
             <div class="col-sm-6">
                 <div class="row align-items-center" id="footerelementswrap">
 
                     <ul class="footerelements">
-                        <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
+                        <li id="copyright">
+                            <i class="far fa-copyright"></i>copyright Lazara Michelle</li>
                     </ul>
                 </div>
             </div>
@@ -136,7 +156,7 @@
 
 
 
-            
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/main.js"></script>

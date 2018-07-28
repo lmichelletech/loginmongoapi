@@ -1,7 +1,6 @@
 const asynq = require('async');
 //loads user schema from models to communicate with the database
 const User = require('../models/user');
-const Article = require('../models/article');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
@@ -209,4 +208,6 @@ module.exports = function(app, passport, isLoggedIn){
       console.log('password changed');
     });
   });
+
+  
 }

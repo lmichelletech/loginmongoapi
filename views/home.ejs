@@ -84,19 +84,19 @@
                                 <div class="articlefooter">
                                     <div class="articleinfo row">
                                         <div id="articlecategory" class="col">
-                                            <i class="fas fa-book"></i>
+                                            <i class="fas fa-book"></i> <%= articles[i].category %>
                                         </div>
                                         <div id="date" class="col">
-                                            <i class="far fa-calendar-alt"></i>
+                                            <i class="far fa-calendar-alt"></i> <%= format.date(new Date(articles[i].articledate), 'yyyy-mm-dd').date %>
                                         </div>
                                         <div id="author" class="col">
-                                            <i class="fas fa-user"></i>
+                                            <i class="fas fa-user"></i> name
                                         </div>
                                         <div id="commenttotal" class="col">
-                                            <i class="fas fa-sort-amount-up"></i>
+                                            <i class="fas fa-sort-amount-up"> 25</i>
                                         </div>
                                         <div id="votes" class="col">
-                                            <i class="fas fa-thumbs-up"></i>
+                                            <i class="fas fa-thumbs-up"> 12</i>
                                         </div>
                                     </div>
                                 </div>

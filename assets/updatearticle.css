@@ -1,0 +1,21 @@
+    
+#articleform{
+    padding: 40px;
+}
+
+.form-group label{
+    text-align: left;
+}
+
+#name{
+    padding-left: 20px;
+  }
+  
+  #articlewrap{
+      background-color: transparent;
+  }
+  
+  .catcheck{
+    padding: 10px;
+}
+  

@@ -111,17 +111,20 @@
                                         <h2 class="articletitle"><a href="#"><%= articles[i].title %></a></h2>
                                         
                                         <div class="post-meta">
+
+                                     
+
                                             <span><i class="far fa-trash-alt"></i> 
-                                                <a id="<%=articles[i]._id %>" name="<%= articles[i]._id %>"  href="/dashboard/delete/:<%=articles[i]._id %>">Delete</a>
+                                                <a id="<%=articles[i]._id %>" name="<%= articles[i]._id %>"  href="/dashboard/delete/<%=articles[i]._id%>">Delete</a>
                                             </span>
                                             <span><i class="far fa-edit"></i> 
-                                                <a id="<%=articles[i]._id %>" name="<%= articles[i]._id %>"  href="/updatearticle/:<%=articles[i]._id %>">Edit</a>
+                                                <a id="<%=articles[i]._id %>" name="<%= articles[i]._id %>"  href="/updatearticle/<%=articles[i]._id%>">Edit</a>
                                             </span>
                                         </div>
                                         
                                         <p class="articletext"><%= articles[i].text.substring(0, 50) %></p>
                                         <p class="articletags"><h5>Tags</h5><%= articles[i].tags %></p>
-                                        <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/:<%=articles[i]._id %>">Read More</a>
+                                        <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/<%=articles[i]._id%>">Read More</a>
                                         
                                     </div>                                
                                 
