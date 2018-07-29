@@ -5,196 +5,197 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Homepage</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
         crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="/main.css"> -->
     
     <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/home.css">
 </head>
 
 <body>
-    
-
-
     <div class="container-fluid">
-            <div class="nav row no-gutters align-items-center">
-                    <div class="col-sm-8">
-                        <div class="row align-items-center"><h1>Home</h1></div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="row align-items-center" id="menu">
-                            <a class="currentpage" id="homepage" href="/home">Home</a>
-                            <a id="dashboardpage" href="/dashboard">Dashboard</a>
-                            <a id="profilepage" href="/profile">Profile</a>
-                            <a id="signoutpage" href="/signout">Sign-Out</a>
-                        </div>
-                    </div>
-                </div>
-        
-                <div class="row no-gutters align-items-center friendly">
-                        <div class="col-md-8" id="name">Hi
-                            <%= user.name.split(' ')[0] %>
-                        </div>
-                    <div class="col-md-4">
-                        <div class="row social">
-                            <div><i class="fab fa-facebook"></i></div>
-                            <div><i class="fab fa-tumblr-square"></i></div>
-                            <div><i class="fab fa-blogger"></i></div>
-                            <div><i class="fab fa-google-plus-square"></i></div>
-                        </div>
-                        
-                    </div>
-                </div>
-        
-
-
-        <div class="row no-gutters align-items-center" id="articlesection">
-            <div class="col-sm-2">
-                <div class="row align-items-start" id="leftsidebar">
-                    <div class="col align-self-start" id="categories">
-                        <div class="row colheader">categories</div>
-                        <ul class="articlecategory">
-                            <li id="art"><i class="fas fa-paint-brush"></i> Design</li>
-                            <li id="news"><i class="fas fa-newspaper"></i> DIY</li>
-                            <li id="entertainment"><i class="fas fa-gamepad"></i></i> Gaming</li>
-                            <li id="tech"><i class="fas fa-code"></i> Code</li>
-                        </ul>
-                    </div>
-                </div>
+    
+        <div class="nav row no-gutters align-items-center">
+            <div class="col-sm-8">
+                <div class="row align-items-center"><h1>Home</h1></div>
             </div>
-            <div class="col-sm-8 align-self-start">
-                <div class="row align-items-start">
-                    <div class="col align-self-start" id="recentarticles">
-                        <div class="row colheader">Recent Articles</div>
-                        <div class="homearticlewrap">
-                                <% if (typeof articles !== 'undefined' && articles.length > 0) {%>
-                                    <%for (var i = 0; i < articles.length; i++) { %>
-
-
-                                <div class="articletitle"><%= articles[i].title %></div>
-                                <div class="articleexcerpt">
-                                    <p><%= articles[i].text.substring(0, 50) %></p>
-                                    <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/<%=articles[i]._id %>">Read More</a>
-                                </div>
-                                <div class="createcommentwrap">
-
-                                        <a onclick="togglesDiv('frm_<%= articles[i]._id %>');" class="addComment" id="btn_<%= articles[i]._id %>" href="#">+ Comment</a>
-                                        <form style="display: none;" id="frm_<%= articles[i]._id %>" action="/home/createcomment" class="justify-content-center form" method="POST">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <input type="hidden" name="currentArticle" value="<%=articles[i]._id %>">
-                                                        <label for="commentbody">Comment Body</label>
-                                                        <textarea name="text" class="form-control" id="commentbody" rows="3" placeholder="body"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                
-                                            <div class="row">
-                                                <div class="col">
-                                                    <button type="submit" class="btn btn-secondary btn-lg">Submit</button>
-                                                </div>
-                                            </div>
-                                        </form>
- 
-                                </div>
-                               
-                                <div class="articlecomments">
-
-                                       
-
-                                        <% if (typeof comments !== 'undefined' && comments.length > 0) {
-                                            for (var j = 0; j < comments.length; j++) { 
-                                                
-                                                var comid = comments[j].article_id.toString();
-                                                var artid = articles[i]._id.toString();
-
-                                                if(comid === artid){ %>
-                                                <p><%= comments[j].text %></p>
-                                           <% } %>
-                                            
-
-                                        <%} }%>
-                                </div>
-                                <div class="articlefooter">
-                                    <div class="articleinfo row">
-                                        <div id="articlecategory" class="col">
-                                            <i class="fas fa-book"></i> <%= articles[i].category %>
-                                        </div>
-                                        <div id="date" class="col">
-                                            <i class="far fa-calendar-alt"></i> <%= format.date(new Date(articles[i].articledate), 'yyyy-mm-dd').date %>
-                                        </div>
-                                        <div id="author" class="col">
-                                            <i class="fas fa-user"></i> 
-                                            <% for (var z = 0; z < users.length; z++) { 
-                                                
-                                                var userid = users[z]._id.toString();
-                                                var artuserid = articles[i].user_id.toString();
-
-                                                if(userid === artuserid){ %>
-                                                <%= users[z].name %>
-                                           <% }} %>
-                                            
-
-                                        </div>
-                                        <div id="commenttotal" class="col">
-                                                <i class="far fa-eye"></i> <%= articles[i].views %>
-                                        </div>
-                                        <div id="likes" class="col">
-                                            <a class="likes" href="/home/addlike/<%=articles[i]._id %>"><i class="fas fa-thumbs-up"></i> </a> <%= articles[i].likes %>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                               
-                                <% }} %>
-                            </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-2">
-                <div class="row" id="rightsidebar">
-                    <div class="col align-self-centert" id="popular">
-                        <div class="row colheader">Popular Articles</div>
-                        <div class="row poparticle">
-                                
-                        </div>
-                    </div>
+            <div class="col-sm-4">
+                <div class="row align-items-center" id="menu">
+                    <a class="currentpage" id="homepage" href="/home">Home</a>
+                    <a id="dashboardpage" href="/dashboard">Dashboard</a>
+                    <a id="profilepage" href="/profile">Profile</a>
+                    <a id="signoutpage" href="/signout">Sign-Out</a>
                 </div>
             </div>
         </div>
 
-      
-
-
-        
-
-            
-
-        <footer class="footer">
-            <div class="container">
-                  <p class="text-muted">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                    <h1>Footer</h1>
-                            </div>
-                            <div class="col-sm-8">
-                                <ul class="footerelements">
-                                    <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
-                                </ul>
-                            </div>
-                        </div>           
-                                
-                  </p>
+        <div class="row no-gutters align-items-center friendly">
+            <div class="col-md-8" id="name">Hi
+                <%= user.name.split(' ')[0] %>
+                <span class="feedback">
+                    <% if (message.length) { %>
+                    <span class="flash"><%= message %></span>
+                    <% } %>
+                    </span>
             </div>
-        </footer>
-          
+            <div class="col-md-4">
+                <div class="row social">
+                    <div><i class="fab fa-facebook"></i></div>
+                    <div><i class="fab fa-tumblr-square"></i></div>
+                    <div><i class="fab fa-blogger"></i></div>
+                    <div><i class="fab fa-google-plus-square"></i></div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="row no-gutters" id="authortoolswrap">
+            <div class="col-sm-3">
+                <div class="row align-items-start" id="leftsidebar">
+                    <div class="col align-self-start" id="authortools">
+                        <div>
+                            <div class="row authortoolsheader">&nbsp;</div>
+                                
+                            <ul class="authortoolsfilter">
+                                <li id="sidebarheader"><i class="far fa-address-book"></i><h5>Category</h5></li>
+                                <li id="filtercategory">
+                                    <div class="sidebar_category">
+                                        <a href="/home">All</a>
+                                        <a href="/home/category/Design">Design</a>
+                                        <a href="/home/category/DIY">DIY</a>
+                                        <a href="/home/category/Gaming">Gaming</a>
+                                        <a href="/home/category/Code">Code</a>
+                                    </div>
+                                </li>
+                                <!-- <li id="sidebarheader"><i class="fas fa-users"></i> Popularity</li>
+                                <li id="filterpopularity">
+                                    stuff
+                                </li>
+                                <li id="sidebarheader"><i class="fas fa-star"></i> Votes</li>
+                                <li id="filtervotes">
+                                    stuff
+                                </li>
+                                <li id="sidebarheader"><i class="fab fa-algolia"></i> Latest</li>
+                                <li id="filterage">
+                                    stuff
+                                </li>
+                                <li id="sidebarheader"><i class="fas fa-comments"></i> Comments</li>
+                                <li id="commenttotal">
+                                    stuff
+                                </li> -->
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-9 align-self-start">
+                <div class="row align-items-start">
+                    <div class="col align-self-start" id="recentarticles">
+                        <div class="row colheader">Recent Articles</div>
+                        <div class="homearticlewrap">
+                            <% if (typeof articles !== 'undefined' && articles.length > 0) {%>
+                                <%for (var i = 0; i < articles.length; i++) { %>
+
+
+                            <div class="articletitle"><%= articles[i].title %></div>
+                            <div class="articleexcerpt">
+                                <p><%= articles[i].text.substring(0, 50) %></p>
+                                <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/<%=articles[i]._id %>">Read More</a>
+                            </div>
+                            <div class="createcommentwrap">
+
+                                <a onclick="togglesDiv('frm_<%= articles[i]._id %>');" class="addComment" id="btn_<%= articles[i]._id %>" href="#">+ Comment</a>
+                                <form style="display: none;" id="frm_<%= articles[i]._id %>" action="/home/createcomment" class="justify-content-center form" method="POST">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="hidden" name="currentArticle" value="<%=articles[i]._id %>">
+                                                <label for="commentbody">Comment Body</label>
+                                                <textarea name="text" class="form-control" id="commentbody" rows="3" placeholder="body"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+        
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-secondary btn-lg">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <div class="articlecomments">
+                                <% if (typeof comments !== 'undefined' && comments.length > 0) {
+                                    for (var j = 0; j < comments.length; j++) { 
+                                        
+                                        var comid = comments[j].article_id.toString();
+                                        var artid = articles[i]._id.toString();
+
+                                        if(comid === artid){ %>
+                                        <p><%= comments[j].text %></p>
+                                    <% } %>
+                                <%} }%>
+                            </div>
+                            <div class="articlefooter">
+                                <div class="articleinfo row">
+                                    <div id="articlecategory" class="col">
+                                        <i class="fas fa-book"></i> <%= articles[i].category %>
+                                    </div>
+                                    <div id="date" class="col">
+                                        <i class="far fa-calendar-alt"></i> <%= format.date(new Date(articles[i].articledate), 'yyyy-mm-dd').date %>
+                                    </div>
+                                    <div id="author" class="col">
+                                        <i class="fas fa-user"></i> 
+                                        <% for (var z = 0; z < users.length; z++) { 
+                                            
+                                            var userid = users[z]._id.toString();
+                                            var artuserid = articles[i].user_id.toString();
+
+                                            if(userid === artuserid){ %>
+                                            <%= users[z].name %>
+                                        <% }} %>
+                                        
+
+                                    </div>
+                                    <div id="commenttotal" class="col">
+                                            <i class="far fa-eye"></i> <%= articles[i].views %>
+                                    </div>
+                                    <div id="likes" class="col">
+                                        <a class="likes" href="/home/addlike/<%=articles[i]._id %>"><i class="fas fa-thumbs-up"></i> </a> <%= articles[i].likes %>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            
+                            <% }} %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="footer" class="nav row no-gutters align-items-center">
+            <div class="col-sm-6">
+                <div class="row align-items-center"><h1>Footer</h1></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row align-items-center" id="footerelementswrap">
+
+                    <ul class="footerelements">
+                        <li id="copyright"><i class="far fa-copyright"></i>copyright Lazara Michelle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>    
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/main.js"></script>
     <script>

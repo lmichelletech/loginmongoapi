@@ -108,7 +108,7 @@
                             </div>
                             <% } %>
                     </div>
-                    <% console.log("---------------------" + articles.title) %>
+                    
                         <%  {%>
 
 
@@ -162,9 +162,13 @@
                             </div>
 
                             <hr>
+                            <h5>Comments</h5>
+                            <% if (typeof comments !== 'undefined' && comments.length > 0) {%>
+                                <%for (var n = 0; n < comments.length; n++) { %>
+                                    <div><%= comments[n].text %></div>
+                                    <hr>       
 
-
-                            <% }%>
+                            <% }}}%>
                 </div>
             </div>
         </div>

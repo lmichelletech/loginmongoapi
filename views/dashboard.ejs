@@ -32,9 +32,14 @@
         </div>
 
         <div class="row no-gutters align-items-center friendly">
-                <div class="col-md-8" id="name">Hi
-                    <%= user.name.split(' ')[0] %>
-                </div>
+            <div class="col-md-8" id="name">Hi
+                <%= user.name.split(' ')[0] %>
+                <span class="feedback">
+                    <% if (message.length) { %>
+                    <span class="flash"><%= message %></span>
+                    <% } %>
+                </span>
+            </div>
             <div class="col-md-4">
                 <div class="row social">
                     <div><i class="fab fa-facebook"></i></div>
@@ -46,38 +51,31 @@
             </div>
         </div>
 
-
-
-
-
-
-
         <div class="row no-gutters" id="authortoolswrap">
             <div class="col-sm-3">
                 <div class="row align-items-start" id="leftsidebar">
                     <div class="col align-self-start" id="authortools">
                         <div>
-                            <div class="row authortoolsheader"></div>
-                                
+                            <div class="row authortoolsheader"></div> 
                             <ul class="authortoolsfilter">
                                 <li id="createarticle"><a href="/createarticle"><i class="fas fa-plus-square"></i> New</li></a>
                             </ul>
-
                         </div>
                         <div>
-                            <div class="row authortoolsheader">Filter</div>
+                            <div class="row authortoolsheader">&nbsp;</div>
                                 
                             <ul class="authortoolsfilter">
                                 <li id="sidebarheader"><i class="far fa-address-book"></i><h5>Category</h5></li>
                                 <li id="filtercategory">
                                     <div class="sidebar_category">
+                                        <a href="/home">All</a>
                                         <a href="/dashboard/category/Design">Design</a>
                                         <a href="/dashboard/category/DIY">DIY</a>
                                         <a href="/dashboard/category/Gaming">Gaming</a>
                                         <a href="/dashboard/category/Code">Code</a>
                                     </div>
                                 </li>
-                                <li id="sidebarheader"><i class="fas fa-users"></i> Popularity</li>
+                                <!-- <li id="sidebarheader"><i class="fas fa-users"></i> Popularity</li>
                                 <li id="filterpopularity">
                                     stuff
                                 </li>
@@ -92,75 +90,52 @@
                                 <li id="sidebarheader"><i class="fas fa-comments"></i> Comments</li>
                                 <li id="commenttotal">
                                     stuff
-                                </li>
+                                </li> -->
                             </ul>
-
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="col-sm-9 align-self-start">
-                    <div class="blog_post">
-                        
+                <div class="blog_post">
+                    
+                    <% if (typeof articles !== 'undefined' && articles.length > 0) {%>
+                        <%for (var i = 0; i < articles.length; i++) { 
+                            if(articles[i].user_id.toString() === user._id.toString()){ %>
 
-                       
-                        
-                            <% if (typeof articles !== 'undefined' && articles.length > 0) {%>
-                              <%for (var i = 0; i < articles.length; i++) { %>
-                                
-                              
-                         
-                            <div class="blog">
-                                
-                                <div class="image">
-                                    
-                                    <a href="#"><img src="images/image_1000x400.jpg" alt=""><span class="overlay"></span></a>
-                                
-                                </div>
-         
-                                <div class="row">
-                                
-                                    <div class="col-sm-2">
-                                        <div class="articledate"><%= format.date(new Date(articles[i].articledate), 'yyyy-mm-dd').date %></div>
-                                        <div class="articlecategory"><%= articles[i].category %></div>
-                                    </div>
-                                    
-                                    <div class="col-sm-10">
-                                        
-                                        <h2 class="articletitle"><a href="#"><%= articles[i].title %></a></h2>
-                                        
-                                        <div class="post-meta">
-
-                                     
-
-                                            <span><i class="far fa-trash-alt"></i> 
-                                                <a id="<%=articles[i]._id %>" name="<%= articles[i]._id %>"  href="/dashboard/delete/<%=articles[i]._id%>">Delete</a>
-                                            </span>
-                                            <span><i class="far fa-edit"></i> 
-                                                <a id="<%=articles[i]._id %>" name="<%= articles[i]._id %>"  href="/updatearticle/<%=articles[i]._id%>">Edit</a>
-                                            </span>
+                                <div class="blog">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="articleauthorimg"><%= articles[i].category %></div>
+                                            <div class="articledate"><%= format.date(new Date(articles[i].articledate), 'yyyy-mm-dd').date %></div>
+                                            <div class="articlecategory"><%= articles[i].category %></div>
                                         </div>
                                         
-                                        <p class="articletext"><%= articles[i].text.substring(0, 50) %></p>
-                                        <p class="articletags"><h5>Tags</h5><%= articles[i].tags %></p>
-                                        <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/<%=articles[i]._id%>">Read More</a>
-                                        
-                                    </div>                                
-                                
+                                        <div class="col-sm-10">
+                                            <h2 class="articletitle"><a href="#"><%= articles[i].title %></a></h2>
+                                            <div class="post-meta">
+                                                <span><i class="far fa-trash-alt"></i> 
+                                                    <a id="<%=articles[i]._id %>" name="<%= articles[i]._id %>"  href="/dashboard/delete/<%=articles[i]._id%>">Delete</a>
+                                                </span>
+                                                <span><i class="far fa-edit"></i> 
+                                                    <a id="<%=articles[i]._id %>" name="<%= articles[i]._id %>"  href="/updatearticle/<%=articles[i]._id%>">Edit</a>
+                                                </span>
+                                            </div>
+                                            
+                                            <p class="articletext"><%= articles[i].text.substring(0, 50) %></p>
+                                            <p class="articletags"><h5>Tags</h5><%= articles[i].tags %></p>
+                                            <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/<%=articles[i]._id%>">Read More</a>
+                                        </div>                                
+                                    </div>                
                                 </div>
-                                                    
-                            </div>
+                                <hr>
                             
-                            <hr>
-                                  
-                            <%}%>
-                            <% } %>
-                        </div>
+                       <%}%>
+                    <% }} %>
+                </div>
             </div>
         </div>
-
-      
 
         <div id="footer" class="nav row no-gutters align-items-center">
             <div class="col-sm-6">
@@ -176,12 +151,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-            
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/main.js"></script>

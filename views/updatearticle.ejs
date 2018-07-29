@@ -67,13 +67,16 @@
                             <% } %>
                     </div>
                     <div id="articleform">
-                    <%  {%>
+                   
+                        <% if (typeof articles !== 'undefined') {%>
+                            
 
                         
-                        <form action="/updatearticle/:_id" class="justify-content-center form" method="POST">
+                        <form action="/updatearticle" class="justify-content-center form" method="POST">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
+                                        <input name="id" type="hidden" value="<%= articles.id %>">
                                         <label for="title">Article Title</label>
                                         <input name="title" type="text" class="form-control form-control-lg" placeholder="title" value="<%= articles.title %>">
                                     </div>
@@ -97,31 +100,31 @@
                                 </div>
                             </div>
                             <div class="row catcheck">
-                                <div class="col">
-                                    <% var selected = '';
-                                                    if(articles.category === 'Design') selected ='checked'; else selected = '';
-                                                    if(articles.category === 'DIY') selected ='checked'; else selected = '';
-                                                    if(articles.category === 'Gaming') selected ='checked'; else selected = '';
-                                                    if(articles.category === 'Code') selected ='checked'; else selected = '';
-                                                    %>
-                                        <div class="form-check form-check-inline">
-                                            <input checked="<%= selected %>" class="form-check-input" type="radio" name="category" id="category1" value="<%= articles.category %>">
-                                            <label class="form-check-label" for="category1">Design</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input checked="<%= selected %>" class="form-check-input" type="radio" name="category" id="category2" value="<%= articles.category %>">
-                                            <label class="form-check-label" for="category2">DIY</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input checked="<%= selected %>" class="form-check-input" type="radio" name="category" id="category3" value="<%= articles.category %>">
-                                            <label class="form-check-label" for="category3">Gaming</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input checked="<%= selected %>" class="form-check-input" type="radio" name="category" id="category4" value="<%= articles.category %>">
-                                            <label class="form-check-label" for="category4">Code</label>
-                                        </div>
+                                    <div class="col">
+                                        <% var selected = '';
+                                                        if(articles.category === 'Design') selected ='checked'; else selected = '';
+                                                        if(articles.category === 'DIY') selected ='checked'; else selected = '';
+                                                        if(articles.category === 'Gaming') selected ='checked'; else selected = '';
+                                                        if(articles.category === 'Code') selected ='checked'; else selected = '';
+                                                        %>
+                                            <div class="form-check form-check-inline">
+                                                <input checked="<%= selected %>" class="form-check-input" type="radio" name="category" id="category1" value="Design">
+                                                <label class="form-check-label" for="category1">Design</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input checked="<%= selected %>" class="form-check-input" type="radio" name="category" id="category2" value="DIY">
+                                                <label class="form-check-label" for="category2">DIY</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input checked="<%= selected %>" class="form-check-input" type="radio" name="category" id="category3" value="Gaming">
+                                                <label class="form-check-label" for="category3">Gaming</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input checked="<%= selected %>" class="form-check-input" type="radio" name="category" id="category4" value="Code">
+                                                <label class="form-check-label" for="category4">Code</label>
+                                            </div>
+                                    </div>
                                 </div>
-                            </div>
 
 
                             <div class="row">

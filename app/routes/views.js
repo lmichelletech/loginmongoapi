@@ -19,19 +19,16 @@ module.exports = function (app, isLoggedIn) {
         if (req.user) {
             var cutoff = new Date();
             cutoff.setDate(cutoff.getDate()-5);
-            console.log("one");
             Article.find({"articledate": {$gt: cutoff}}, function (err, data){
-                console.log("two " + data);
             if(err){
               console.log(err);
             }
             else {
                 if(!data){
                   req.flash('home-msg', 'No articles found.');
-                  return res.render('/home');
+                  return res.render('home');
                 }
                 else{
-                  console.log("three data : " + data);
 
                   Comment.find({}, function(err, comments){
 
@@ -43,11 +40,11 @@ module.exports = function (app, isLoggedIn) {
                         User.find({}, function(err, users)
                         {
                             if(err){
-                                console.log("comment error " + err)
+                                console.log("comment user error " + err)
                                 return res.send(err);
                             }
                             else{
-                                req.flash('home-msg', 'Record found')
+                                req.flash('home-msg', '')
                                 res.render('home.ejs', { message: req.flash('home-msg'),
                                 user: req.user, users : users, articles: data, comments: comments});
                             }
@@ -56,7 +53,7 @@ module.exports = function (app, isLoggedIn) {
 
                     }
 
-                  }).sort({article_date: -1}).limit(3)
+                  }).sort({article_date: -1})
                 }
               }
             })
@@ -118,55 +115,42 @@ module.exports = function (app, isLoggedIn) {
         res.render('passwordreset.ejs', { message: req.flash('password-reset-msg') });
     })
 
+    app.get('/home/category/:index', (req, res) => {
+        let index = req.params.index;
+        console.log("category index " + index);
+        
+        Article.find({category: index},function(err, result){
+            if (err){
+                console.log("category error " + err);
+                return res.send('Error viewing category! ' + err);
+            }
+            if (!result) return res.send('Invalid category index. No data found.');
+            if (result) {
+                console.log("found category " + result);
+                Comment.find({}, function(err, comments){
 
-
-
-
-
-
-
-
-
-
-
-
-    app.get('/articlelist', isLoggedIn, function (req, res) {
-        if (req.user) {
-            res.render('dashboard.ejs', {
-                message: req.flash('dashboard-msg'),
-                user: req.user
-            });
-        }
-        else {
-            res.redirect('/signin');
-        }
-    })
-
-    
-
-
-
-
-
-
-
-
-
-
-    
-
-   
-
-
-
-
-
-
-
-
-
-
-
+                    if(err){
+                        console.log("comment error " + err)
+                        return res.send(err);
+                    }
+                    else{
+                        User.find({}, function(err, users)
+                        {
+                            if(err){
+                                console.log("comment user error " + err)
+                                return res.send(err);
+                            }
+                            else{
+                                req.flash('home-msg', 'Record found')
+                                res.render('home.ejs', { message: req.flash('home-msg'),
+                                user: req.user, users : users, articles: result, comments: comments});
+                            }
+                        })
+                    }
+                  }).sort({article_date: -1})
+            }
+        })
+    });
 
 
     app.get('/dashboard', isLoggedIn, function(req, res){
@@ -181,13 +165,10 @@ module.exports = function (app, isLoggedIn) {
                     return res.redirect('/dashboard');
                     }
                     else{
-                        
-                        console.log("data count : " + data.length);
-                        req.flash('dashboard-msg', 'Record and comments found')
+                        req.flash('dashboard-msg', '')
                                 res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
                                 user : req.user, articles: data});
                     }
-                
                 }
             
             })
@@ -232,17 +213,6 @@ module.exports = function (app, isLoggedIn) {
         })
     });
 
-
-
-
-
-
-
-
-
-
-
-   
     app.get('/home/addlike/:article_id', isLoggedIn, function (req, res) {
         if (req.user) {
             console.log("article id for like ******* " + req.params.article_id);
@@ -262,20 +232,21 @@ module.exports = function (app, isLoggedIn) {
         }
     })
 
-
-    app.get('/updatearticle/:_id', isLoggedIn, function (req, res) {
+    app.get('/updatearticle/:id', isLoggedIn, function (req, res) {
         if (req.user) {
-            Article.findOne({id: req.params.id}, function (err, data) {
+            Article.findById(req.params.id, function (err, articles) {
+            console.log("article ID******* " + req.params.id + " >>>>>>>>>>>>> " + articles.title);
                 if (err) return res.send('Error getting article! ' + err);
-                if (!data) return res.send('No article exists with that ID.');
-                if (data) {
-                    console.log("article count ******* " + data.length + " " + data);
-                    res.render('updatearticle', {
+                if (!articles) return res.send('No article exists with that ID.');
+                if (articles) {
+                    console.log("article count ******* " + articles._id + " ***************** " + articles);
+                    res.render('updatearticle.ejs', {
                         message: req.flash('update-article-msg'),
                         user: req.user,
-                        articles: data
+                        articles: articles
                     });
                 }
+                
             });
         }
         else {
@@ -283,46 +254,29 @@ module.exports = function (app, isLoggedIn) {
         }
     });
     
-    
-
-
-
-
-    
-    app.post('/updatearticle/:_id', isLoggedIn, function (req, res) {
+    app.post('/updatearticle', isLoggedIn, function (req, res) {
         if (req.user) {
-            console.log("update request " + req.params.id);
-            Article.update({id: req.params.id}, {$set: {title: req.body.title, text: req.body.text} }, function(err) {
- 
+            Article.update({'_id': req.body.id}, {$set: {'title': req.body.title, 'text': req.body.text, 'tags': req.body.tags, 'category': req.body.category} }, function(err) {
                 if(err) {
                     req.flash('update-article-msg', 'update error occurred in database')
                     console.log('an error occurred updating to database...');
-                    return res.render('updatearticle.ejs');
+                    return res.render('updatearticle', {
+                        message: req.flash('update-article-msg'),
+                        user: req.user
+                    });
                 }
-         
                 else {
                     req.flash('update-article-msg', 'updated article successfully...')
                     console.log('updated article successfully...');
                     res.redirect('/dashboard');
                 }
-         
             });
-        
-
         }
         else {
             res.redirect('/signin');
         }
     });
       
-
-
-
-
-
-
-
-
     app.get('/createarticle', isLoggedIn, function (req, res) {
         if (req.user) {
             res.render('createarticle', {
@@ -360,12 +314,8 @@ module.exports = function (app, isLoggedIn) {
                     console.log('saved article successfully...');
                     res.redirect('/dashboard');
                 }
-         
-
         })
     })
-
-
 
     app.post('/home/createcomment', function (req, res) {
 
@@ -391,39 +341,36 @@ module.exports = function (app, isLoggedIn) {
     })
 
     app.get('/viewarticle/:id', (req, res) => {
-        let id = req.params.id + "";
-        
-        console.log("view article params " + req.params.id + " body " + req.body + " id " + id);
         Article.findById(req.params.id, function (err, articles) {
             if (err) return res.send('Error viewing article! ' + err);
             if (!articles) return res.send('Invalid Article ID. No data with that ID.');
             if (articles) {
-                console.log("DATA : " + articles.title);
+                console.log("article : " + articles.title);
                 Article.update({_id: req.params.id},  {$inc: {'views' : 1  }}, function (err, data) {
                     if (err) return res.send('Error unable to increment view on article! ' + err);
                     if (!data) return res.send('Unable to increment view because no article exists with that ID.');
                     if (data) {
                         console.log("view was incremented successfully");
-                        return res.render('viewarticle', {
-                            message: req.flash('view-article-msg'),
-                            user: req.user,
-                            articles: articles
-                        });
+                        Comment.find({article_id: id}, function(err, comments){
+
+                            if(err){
+                                console.log("comment error " + err)
+                                return res.send(err);
+                            }
+                            else{
+                                req.flash('view-article-msg', 'Full Article & Comments')
+                                res.render('viewarticle.ejs', { message: req.flash('view-article-msg'),
+                                user: req.user, articles: articles, comments: comments});
+                            }
+        
+                        }).sort({article_date: -1}).limit(3)
                     }
                 });
-                
             }
         });
-
     })
-
-
-      
-    
 
     app.get('*', function (req, res) {
         res.render('404');
     })
-
 }
-

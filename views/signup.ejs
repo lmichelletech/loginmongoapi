@@ -10,13 +10,18 @@
 </head>
 
 <body>
-    <h1>Sign Up</h1>
-    <nav class="nav">
-        <div>Welcome</div>
-        <div>
-            <a href="/signin">Sign-In</a>
-        </div>
-    </nav>
+        <div class="container-fluid">
+    
+                <div class="nav row no-gutters align-items-center">
+                    <div class="col-sm-8">
+                        <div class="row align-items-center"><h1>Sign-Up</h1></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row align-items-center" id="menu">
+                            <a id="homepage" href="/signin">Sign-in</a>
+                        </div>
+                    </div>
+                </div>
     
     
     <div class="container">
@@ -25,39 +30,36 @@
             <div class="flash"><%= message %></div>
             <% } %>
         </div>
-        <form action="/signup" method="POST">
-            <label for="name">Name</label>
-            <div>
-                <input required type="text" name="name" class="form-input">
-            </div>
-            <label for="birthdate">Birthdate</label>
-            <div>
-                <input required type="date" name="birthdate" class="form-input">
-            </div>
-            <label for="email">Email</label>
-            <div>
-                <input required type="email" name="email" class="form-input">
-            </div>
-            <label for="password">Password</label>
-            <div>
-                <input required type="password" name="password" class="form-input">
-            </div>
-            <label for="password_confirmation">Password Confirmation</label>
-            <div>
-                <input required type="password" name="password_confirmation" class="form-input">
-            </div>
-
-            <button type="submit" class="form-btn">Sign Up</button>
-        </form>
-    
-    
-        <div class="links-container">
+        <div>
+            <form class="form" action="/signup" method="POST">
+                <div class="frmwrap">
+                    <div class="input-container">
+                        <label for="name">Name <input required type="text" name="name" class="form-input" placeholder="name"></label>  
+                        <label for="email">Email <input required type="email" name="email" class="form-input" placeholder="email"></label>
+                    </div>
+                    
+                    <div class="input-container">
+                        <label for="img">Image <input type="text" name="img" class="form-input" placeholder="image url"></label>
+                        <label for="birthdate">Birthdate <input required type="date" name="birthdate" class="form-input"></label>
+                    </div>
+                    
+                    <div class="input-container">
+                        <label for="password">Password <input required type="password" name="password" class="form-input" placeholder="password"></label>
+                        <label for="password_confirmation">Password Confirmation <input required type="password" name="password_confirmation" class="form-input" placeholder="password confirmation"></label>
+                    </div>
+                </div>
                 
+
+                <div class="submitwrap"><button type="submit" class="form-btn">Sign Up</button></div>
+            </form>
+        </div>
+    
+        <div class="links-container"> 
             <div>Already have an account? <a href="/signin">Sign-In</a></div>
             <div>Forgot your password? <a href="/passwordrecovery">Recover</a></div>
-            
         </div>
     </div>
+</div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/main.js"></script>
 </body>

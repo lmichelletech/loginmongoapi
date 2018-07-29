@@ -29,19 +29,41 @@ h1{
     width: 275px;
     height: 60px;
     padding: 10px;
+    margin: 5px 0;
 }
 
 .input-container{
-    margin:20 0;
+    margin: 20px;
+    padding: 20px;
 }
 
 .form-btn{
     width: 300px;
     height: 60px;
     font-size: 18px;
-    padding: 0 10px;
+    padding: 10px;
 }
 
 .links-container{
     margin: 20px;
 }
+
+.form{
+    border: 2px solid #ccc;
+    margin-top: 15vh;
+    text-align: center;
+    display:inline-block;
+}
+
+.formwrap{
+    margin:0 auto;
+}
+
+.submitwrap{
+    margin: 0 auto;
+    text-align:center;
+    padding: 20px;
+}
+
+label {display:inline-block; text-align: left;}
+input {display: block;}

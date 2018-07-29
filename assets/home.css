@@ -80,11 +80,16 @@
 
 #name{
   padding-left: 20px;
+  padding-right: 40px;
+  display: inline;
+  color: #eee;
+  font-size: 130%;
+  font-weight: 500;
 }
 
 #leftsidebar{
   background-color: #307cc2;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 #rightsidebar{
@@ -171,27 +176,8 @@ background-color: white;
 .articlefooter{
   margin: 0 0 0 -10px;
   padding: 0;
-  width: 120%;
+  width: 102%;
 }
-
-.footer{
-  margin: -20px 0 0 0;
-  width: 100%;
-  height: 10vh;
-  background-color: #0099cc;
-}
-
-.footerelements li{
-  list-style-type: none;
-  display: flex;
-  padding: 10px;
-}
-
-.footerelements i{
-  padding: 10px;
-  margin-top: -5px;
-}
-
 
 .createcommentwrap{
   background-color: #eee;
@@ -220,4 +206,6 @@ background-color: white;
 
 .articletitle{
   padding: 10px 5px;
+  font-size: 120%;
+  font-weight: 600;
 }

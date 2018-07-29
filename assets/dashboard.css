@@ -14,7 +14,6 @@
   .no-gutters .col,
   .no-gutters [class*="col-"] {
       padding-right: 5px;
-      padding-left: 5px;
     }
 
   .row {
@@ -66,6 +65,11 @@
 
 #name{
   padding-left: 20px;
+  padding-right: 40px;
+  display: inline;
+  color: #eee;
+  font-size: 130%;
+  font-weight: 500;
 }
 
 #leftsidebar{

@@ -105,6 +105,7 @@ module.exports = function (passport) {
                                     newUser.email = email;
                                     newUser.password = newUser.generateHash(password);
                                     newUser.name = req.body.name;
+                                    newUser.img = req.body.img;
                                     newUser.birthdate = req.body.birthdate;
                                     newUser.emailConfirmed = false;
                                     newUser.emailConfirmationToken = emailHash;
