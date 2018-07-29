@@ -351,7 +351,7 @@ module.exports = function (app, isLoggedIn) {
                     if (!data) return res.send('Unable to increment view because no article exists with that ID.');
                     if (data) {
                         console.log("view was incremented successfully");
-                        Comment.find({article_id: id}, function(err, comments){
+                        Comment.find({article_id: req.params.id}, function(err, comments){
 
                             if(err){
                                 console.log("comment error " + err)
