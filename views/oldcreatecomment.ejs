@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Comment</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/createcomment.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="nav row no-gutters align-items-center">
+            <div class="col-sm-8">
+                <div class="row align-items-center">
+                    <h1>Create Comment</h1>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row align-items-center" id="menu">
+                    <a id="homepage" href="/home">Home</a>
+                    <a id="dashboardpage" href="/dashboard">Dashboard</a>
+                    <a id="profilepage" href="/profile">Profile</a>
+                    <a id="signoutpage" href="/signout">Sign-Out</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row no-gutters align-items-center friendly">
+            <div class="col-md-8" id="name">Hi
+                <%= user.name.split(' ')[0] %>
+            </div>
+            <div class="col-md-4">
+                <div class="row social">
+                    <div>
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <div>
+                        <i class="fab fa-tumblr-square"></i>
+                    </div>
+                    <div>
+                        <i class="fab fa-blogger"></i>
+                    </div>
+                    <div>
+                        <i class="fab fa-google-plus-square"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="row no-gutters" id="articlewrap">
+                <div class="col-sm-12 align-self-center">
+                    <div class="blog">
+                        <div class="feedback">
+                            <% if (message.length) { %>
+                                <div class="flash">
+                                    <%= message %>
+                                </div>
+                                <% } %>
+                        </div>
+                        <div id="commentform">
+                            <form action="/createcomment/:<%= article.id %>" class="justify-content-center form" method="POST">
+                                
+                                <input name="article_id" type="hidden" value=<%= article.id %>>
+                                <input name="user_id" type="hidden" value=<%= user.id %>>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="commentbody">Comment Body</label>
+                                            <textarea name="text" class="form-control" id="commentbody" rows="3" placeholder="body"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+    
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-secondary btn-lg">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+
+
+
+        <div id="footer" class="nav row no-gutters align-items-center">
+            <div class="col-sm-6">
+                <div class="row align-items-center">
+                    <h1>Footer</h1>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row align-items-center" id="footerelementswrap">
+
+                    <ul class="footerelements">
+                        <li id="copyright">
+                            <i class="far fa-copyright"></i>copyright Lazara Michelle</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/main.js"></script>
+</body>
+
+</html>

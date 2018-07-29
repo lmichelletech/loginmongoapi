@@ -129,3 +129,15 @@ background-color: white;
     margin-top: -5px;
   }
   
+/* Only for Dashboard */
+.sidebar_category a{
+  display: block;
+}
+.sidebar_category a{
+  text-decoration: none;
+  color: white;
+  padding: 5px 5px 5px 38px ;
+}
+.sidebar_category a:hover{
+   color: #ff9900;
+}

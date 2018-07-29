@@ -78,9 +78,49 @@
                                 <div class="articletitle"><%= articles[i].title %></div>
                                 <div class="articleexcerpt">
                                     <p><%= articles[i].text.substring(0, 50) %></p>
-                                    <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/:<%=articles[i]._id %>">Read More</a>
+                                    <a id="<%=articles[i]._id %>" class="more" href="/viewarticle/<%=articles[i]._id %>">Read More</a>
                                 </div>
+                                <div class="createcommentwrap">
 
+                                        <a onclick="togglesDiv('frm_<%= articles[i]._id %>');" class="addComment" id="btn_<%= articles[i]._id %>" href="#">+ Comment</a>
+                                        <form style="display: none;" id="frm_<%= articles[i]._id %>" action="/home/createcomment" class="justify-content-center form" method="POST">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="currentArticle" value="<%=articles[i]._id %>">
+                                                        <label for="commentbody">Comment Body</label>
+                                                        <textarea name="text" class="form-control" id="commentbody" rows="3" placeholder="body"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="submit" class="btn btn-secondary btn-lg">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+ 
+                                </div>
+                               
+                                <div class="articlecomments">
+
+                                       
+
+                                        <% if (typeof comments !== 'undefined' && comments.length > 0) {
+                                            for (var j = 0; j < comments.length; j++) { 
+                                                
+                                                var comid = comments[j].article_id.toString();
+                                                var artid = articles[i]._id.toString();
+
+                                                if(comid === artid){ %>
+                                                <p><%= comments[j].text %></p>
+                                           <% } %>
+                                            
+
+                                        <%} }%>
+                                </div>
                                 <div class="articlefooter">
                                     <div class="articleinfo row">
                                         <div id="articlecategory" class="col">
@@ -90,13 +130,23 @@
                                             <i class="far fa-calendar-alt"></i> <%= format.date(new Date(articles[i].articledate), 'yyyy-mm-dd').date %>
                                         </div>
                                         <div id="author" class="col">
-                                            <i class="fas fa-user"></i> name
+                                            <i class="fas fa-user"></i> 
+                                            <% for (var z = 0; z < users.length; z++) { 
+                                                
+                                                var userid = users[z]._id.toString();
+                                                var artuserid = articles[i].user_id.toString();
+
+                                                if(userid === artuserid){ %>
+                                                <%= users[z].name %>
+                                           <% }} %>
+                                            
+
                                         </div>
                                         <div id="commenttotal" class="col">
-                                            <i class="fas fa-sort-amount-up"> 25</i>
+                                                <i class="far fa-eye"></i> <%= articles[i].views %>
                                         </div>
-                                        <div id="votes" class="col">
-                                            <i class="fas fa-thumbs-up"> 12</i>
+                                        <div id="likes" class="col">
+                                            <a class="likes" href="/home/addlike/<%=articles[i]._id %>"><i class="fas fa-thumbs-up"></i> </a> <%= articles[i].likes %>
                                         </div>
                                     </div>
                                 </div>
@@ -147,6 +197,16 @@
           
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/main.js"></script>
+    <script>
+            function togglesDiv(divid){  
+                var catdiv = document.getElementById(divid);  
+                if(catdiv.style.display === "block"){  
+                    catdiv.style.display = "none";  
+                } else {  
+                    catdiv.style.display = "block";  
+                }  
+            } 
+     </script>
 </body>
 
 </html>

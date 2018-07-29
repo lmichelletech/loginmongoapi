@@ -1,5 +1,7 @@
 const format = require('../methods/format');
 const Article = require('../models/article');
+const Comment = require('../models/comment');
+const User = require('../models/user');
 
 //hiding and showing occurs server side using browser request and response and passport
 module.exports = function (app, isLoggedIn) {
@@ -9,25 +11,17 @@ module.exports = function (app, isLoggedIn) {
             res.redirect('/home');
         }
         else {
-            //can also be render but should have a /
-            //like res.render(/signin');
             res.redirect('signin');
         }
     })
-    //
-    // when you use redirect it redirects to the route
-    // when you use render it literally constructs the html
-    // passport makes user available in the request object
-
-
-
-
 
     app.get('/home', isLoggedIn, function(req, res){
         if (req.user) {
             var cutoff = new Date();
             cutoff.setDate(cutoff.getDate()-5);
+            console.log("one");
             Article.find({"articledate": {$gt: cutoff}}, function (err, data){
+                console.log("two " + data);
             if(err){
               console.log(err);
             }
@@ -37,18 +31,41 @@ module.exports = function (app, isLoggedIn) {
                   return res.render('/home');
                 }
                 else{
-                  console.log("data count : " + data.length);
-                  req.flash('home-msg', 'Record found')
-                  res.render('home.ejs', { message: req.flash('home-msg'),
-                  user : req.user, articles: data});
+                  console.log("three data : " + data);
+
+                  Comment.find({}, function(err, comments){
+
+                    if(err){
+                        console.log("comment error " + err)
+                        return res.send(err);
+                    }
+                    else{
+                        User.find({}, function(err, users)
+                        {
+                            if(err){
+                                console.log("comment error " + err)
+                                return res.send(err);
+                            }
+                            else{
+                                req.flash('home-msg', 'Record found')
+                                res.render('home.ejs', { message: req.flash('home-msg'),
+                                user: req.user, users : users, articles: data, comments: comments});
+                            }
+                            
+                        })
+
+                    }
+
+                  }).sort({article_date: -1}).limit(3)
                 }
-            }
+              }
             })
         }
         else {
             res.redirect('signin');
         }
     })
+    
     
 
     app.get('/signin', function (req, res) {
@@ -125,32 +142,8 @@ module.exports = function (app, isLoggedIn) {
         }
     })
 
+    
 
-
-    app.get('/addarticlecomment', isLoggedIn, function (req, res) {
-        if (req.user) {
-            res.render('viewarticle', {
-                message: req.flash('view-article-msg'),
-                user: req.user
-            });
-        }
-        else {
-            res.redirect('/signin');
-        }
-    })
-
-
-    app.get('/addvote', isLoggedIn, function (req, res) {
-        if (req.user) {
-            res.render('viewarticle', {
-                message: req.flash('view-article-msg'),
-                user: req.user
-            });
-        }
-        else {
-            res.redirect('/signin');
-        }
-    })
 
 
 
@@ -188,10 +181,11 @@ module.exports = function (app, isLoggedIn) {
                     return res.redirect('/dashboard');
                     }
                     else{
-                    console.log("data count : " + data.length);
-                    req.flash('dashboard-msg', 'Record found')
-                    res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
-                    user : req.user, articles: data});
+                        
+                        console.log("data count : " + data.length);
+                        req.flash('dashboard-msg', 'Record and comments found')
+                                res.render('dashboard.ejs', { message: req.flash('dashboard-msg'),
+                                user : req.user, articles: data});
                     }
                 
                 }
@@ -206,18 +200,71 @@ module.exports = function (app, isLoggedIn) {
     
     app.get('/dashboard/delete/:id', (req, res) => {
         let id = req.params.id;
-        console.log("frank id " + id);
+        console.log("delete id " + id);
         
         Article.remove({"_id":req.params.id},function(err, result){
-            console.log("frank error " + err);
+            console.log("delete error " + err);
             res.redirect('/dashboard');
         })
     });
     
-  
+
+
+    app.get('/dashboard/category/:index', (req, res) => {
+        let index = req.params.index;
+        console.log("category index " + index);
+        
+        Article.find({category: index},function(err, result){
+            if (err){
+                console.log("category error " + err);
+                return res.send('Error viewing category! ' + err);
+            }
+            if (!result) return res.send('Invalid category index. No data found.');
+            if (result) {
+                console.log("found category " + result);
+                res.render('dashboard', {
+                    message: req.flash('dashboard-msg'),
+                    user: req.user,
+                    articles: result
+                });
+            }
+            console.log("work it " + req.params.index);
+        })
+    });
+
+
+
+
+
+
+
+
+
+
+
+   
+    app.get('/home/addlike/:article_id', isLoggedIn, function (req, res) {
+        if (req.user) {
+            console.log("article id for like ******* " + req.params.article_id);
+            
+
+            Article.update({_id: req.params.article_id},  {$inc: {'likes' : 1  }}, function (err, data) {
+                if (err) return res.send('Error adding like to article! ' + err);
+                if (!data) return res.send('Unable to add like because no article exists with that ID.');
+                if (data) {
+                    console.log("article like was added successfully");
+                    return res.redirect('/home');
+                }
+            });
+        }
+        else {
+            res.redirect('/signin');
+        }
+    })
+
+
     app.get('/updatearticle/:_id', isLoggedIn, function (req, res) {
         if (req.user) {
-            console.log("article id ******* " + req.params._id);
             Article.findOne({id: req.params.id}, function (err, data) {
                 if (err) return res.send('Error getting article! ' + err);
                 if (!data) return res.send('No article exists with that ID.');
@@ -298,7 +345,9 @@ module.exports = function (app, isLoggedIn) {
                 text: req.body.text,
                 articledate: current_date,
                 category: req.body.category,
-                tags: req.body.tags
+                likes: 0,
+                tags: req.body.tags,
+                views: 0
             })
 
             art.save(function (err) {
@@ -316,45 +365,30 @@ module.exports = function (app, isLoggedIn) {
         })
     })
 
-       
-// app.get('/viewarticle/:id', (req, res) => {
-//     Article.find(art => {
-//         return art.id == req.params.id
-//     });
 
-    
-//     res.json(art || {});
-// })
-  
 
-// employeeController.show = function(req, res) {
-//     Employee.findOne({_id: req.params.id}).exec(function (err, employee) {
-//       if (err) {
-//         console.log("Error:", err);
-//       }
-//       else {
-//         res.render("../views/employees/show", {employee: employee});
-//       }
-//     });
-//   };
+    app.post('/home/createcomment', function (req, res) {
 
-// app.get('/viewarticle/:id', (req, res) => {
-//     let id = req.params.id;
-//     let test = req.body;
-//     id = id + "";
-//     console.log("view article " + id);
-//     Article.findById(test.id, function (err, data) {
-        
-//         if (err) return res.send('Error viewing article! ' + err);
-//         if (!data) return res.send('Invalid Article ID. No data with that ID.');
-//         if (data) {
-//             res.redirect('/viewarticle');
-//         }
-//     }
+            var current_date = new Date();
+            var com = new Comment({
+                text: req.body.text,
+                article_id: req.body.currentArticle,
+                user_id: req.user.id,
+                createddate: current_date,
+                likes: 0
+            })
 
-// )})
-  
-
+            com.save(function (err) {
+                if (err) {
+                    console.log('an error ocurred saving comment to database...' + err);
+                    res.redirect('/home');
+                }
+                else {
+                    console.log('saved comment successfully...');
+                    res.redirect('/home');
+                }
+        })
+    })
 
     app.get('/viewarticle/:id', (req, res) => {
         let id = req.params.id + "";
@@ -365,12 +399,19 @@ module.exports = function (app, isLoggedIn) {
             if (!articles) return res.send('Invalid Article ID. No data with that ID.');
             if (articles) {
                 console.log("DATA : " + articles.title);
-                res.render('viewarticle', {
-                    message: req.flash('view-article-msg'),
-                    user: req.user,
-                    articles: articles
+                Article.update({_id: req.params.id},  {$inc: {'views' : 1  }}, function (err, data) {
+                    if (err) return res.send('Error unable to increment view on article! ' + err);
+                    if (!data) return res.send('Unable to increment view because no article exists with that ID.');
+                    if (data) {
+                        console.log("view was incremented successfully");
+                        return res.render('viewarticle', {
+                            message: req.flash('view-article-msg'),
+                            user: req.user,
+                            articles: articles
+                        });
+                    }
                 });
-                console.log("come on " + req.params.id);
+                
             }
         });
 

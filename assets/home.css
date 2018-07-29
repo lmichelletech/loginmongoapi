@@ -192,3 +192,32 @@ background-color: white;
   margin-top: -5px;
 }
 
+
+.createcommentwrap{
+  background-color: #eee;
+  padding: 10px;
+  color: #000;
+}
+
+.createcommentwrap a{
+  text-decoration: none;
+  color: #000;
+}
+
+.addComment{
+  padding: 20px 0;
+}
+
+.articlecomments p{
+  border: 1 solid #eee;
+  background-color: rgb(255, 236, 127);
+  padding: 20px;
+}
+
+.articleexcerpt{
+  padding: 10px 5px;
+}
+
+.articletitle{
+  padding: 10px 5px;
+}

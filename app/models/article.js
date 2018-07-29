@@ -9,8 +9,8 @@ const articleSchema = mongoose.Schema({
     articledate: Date,    
     category: [String],
     likes: Number,
-    tags: String
-
+    tags: String,
+    views: Number
 });
 
 
